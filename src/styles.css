@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files
+@media screen and (min-width:992px) {
+    .navbar-content,
+    .navbar-nav {
+        flex-direction: column !important;
+    }
+}
+
+.navbar {
+    height: 100vh;
+    align-items: flex-start;
+}
+
+.navbar-brand {
+    margin-left: 0.5rem;
+    font-size: 1.5em;
+    font-weight: bold;
+
+} */
+
+.navbar-nav {
+    flex-direction: column;
+    display: block;
+}
+
+.ingredients-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+img.logo {
+    width: 10rem;
+}
+
+th {
+    font-size: large;
+}
