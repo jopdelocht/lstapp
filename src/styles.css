@@ -1,16 +1,29 @@
 /* BASIC COLORS
 1) #feebf1 */
 
+/* styling for the left side of navbar grid 2 columns */
+.col-md-2.d-flex.flex-column.left {
+    background-color: #feebf1;
+}
+
+/* vertical styling for the navbar*/
 .navbar-nav {
     flex-direction: column;
     display: block;
 }
 
+/* styling for the navigation links on hover */
+a.nav-link:hover {
+    background-color: #d5c1c7;
+}
+
+/* styling for list of ingredients coming from the stock-items  */
 .ingredients-list {
     list-style-type: none;
     padding-left: 0;
 }
 
+/* width of the logo in the navbar */
 img.logo {
     width: 10rem;
 }
@@ -19,15 +32,7 @@ th {
     font-size: large;
 }
 
-/* Style for the navigation links on hover */
-a.nav-link:hover {
-    background-color: #d5c1c7;
-}
-
+/* the styling for the plus-icon in the navbar */
 i.fa-solid.fa-plus {
     font-size: 20px;
-}
-
-.col-md-2.d-flex.flex-column.left {
-    background-color: #feebf1;
 }

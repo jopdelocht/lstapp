@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+// import for the custom grams to kilo pipe operator
+import { GramsToKilosPipe } from '../grams-to-kilos.pipe';
+
 
 @Component({
   selector: 'app-stock',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, GramsToKilosPipe],
   templateUrl: './stock.component.html',
   styleUrl: './stock.component.css'
 })
