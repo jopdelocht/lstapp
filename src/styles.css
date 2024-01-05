@@ -1,22 +1,5 @@
-/* You can add global styles to this file, and also import other style files
-@media screen and (min-width:992px) {
-    .navbar-content,
-    .navbar-nav {
-        flex-direction: column !important;
-    }
-}
-
-.navbar {
-    height: 100vh;
-    align-items: flex-start;
-}
-
-.navbar-brand {
-    margin-left: 0.5rem;
-    font-size: 1.5em;
-    font-weight: bold;
-
-} */
+/* BASIC COLORS
+1) #feebf1 */
 
 .navbar-nav {
     flex-direction: column;
@@ -34,4 +17,17 @@ img.logo {
 
 th {
     font-size: large;
+}
+
+/* Style for the navigation links on hover */
+a.nav-link:hover {
+    background-color: #d5c1c7;
+}
+
+i.fa-solid.fa-plus {
+    font-size: 20px;
+}
+
+.col-md-2.d-flex.flex-column.left {
+    background-color: #feebf1;
 }
