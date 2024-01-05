@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+/* BASIC COLORS
+1) #feebf1 */
+
+.navbar-nav {
+    flex-direction: column;
+    display: block;
+}
+
+.ingredients-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+img.logo {
+    width: 10rem;
+}
+
+th {
+    font-size: large;
+}
+
+/* Style for the navigation links on hover */
+a.nav-link:hover {
+    background-color: #d5c1c7;
+}
+
+i.fa-solid.fa-plus {
+    font-size: 20px;
+}
+
+.col-md-2.d-flex.flex-column.left {
+    background-color: #feebf1;
+}

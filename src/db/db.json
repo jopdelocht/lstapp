@@ -1,0 +1,32 @@
+    {
+        "stock": [
+            {
+                "id": 1,
+                "name": "Suikerbakkerspoeder",
+                "quantity": 5000,
+                "ingredients": [
+                    "suiker",
+                    "gedroogde glucosestroop"
+                ],
+                "price": 12.00,
+                "expirationDate": "2027-10-04",
+                "supplier": "Baktotaal",
+                "isFood": true
+            },
+            {
+                "id": 2,
+                "name": "Boter",
+                "quantity": 10000,
+                "ingredients": [
+                    "boter"
+                ],
+                "allergens": [
+                    "melk"
+                ],
+                "price": 79.60,
+                "expirationDate": "2024-11-04",
+                "supplier": "Colruyt",
+                "isFood": true
+            }
+        ]
+    }

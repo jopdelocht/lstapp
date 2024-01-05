@@ -1,0 +1,30 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Omschrijving</th>
+            <th>Hoeveelheid</th>
+            <th>Ingrediënten</th>
+            <th>Prijs</th>
+            <th>Exp.date</th>
+            <th>Leverancier</th>
+            <th>Voeding</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of stockitems">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>
+                <ul class="ingredients-list">
+                    <li *ngFor="let ingredient of item.ingredients">- {{ingredient}}</li>
+                </ul>
+            </td>
+            <td>{{item.price | currency:'EUR'}}</td>
+            <td>{{item.expirationDate | date:'shortDate' }}</td>
+            <td>{{item.supplier}}</td>
+            <td>{{item.isFood}}</td>
+        </tr>
+    </tbody>
+</table>
