@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+// import for the custom grams to kilo pipe operator
 import { GramsToKilosPipe } from '../grams-to-kilos.pipe';
 
 
