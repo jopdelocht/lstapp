@@ -1,3 +1,9 @@
+/* Imports for Grid CSS */
+/* Core Grid CSS */
+@import 'ag-grid-community/styles/ag-grid.css';
+/* Quartz Theme Specific CSS */
+@import 'ag-grid-community/styles/ag-theme-quartz.css';
+
 /* BASIC COLORS
 1) #feebf1 */
 

@@ -1,4 +1,4 @@
-<!-- Table for showing the content of the stock database -->
+<!-- Table for showing the content of the stock database
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -28,4 +28,12 @@
             <td>{{item.isFood}}</td>
         </tr>
     </tbody>
-</table>
+</table> -->
+
+<!-- AG Grid version of the table -->
+<ag-grid-angular
+    class="ag-theme-quartz"
+    style="height: 500px;"
+    [rowData]="rowData"
+    [columnDefs]="colDefs">
+</ag-grid-angular>
