@@ -1,1 +1,35 @@
-<p>Stockadd works!</p>
+<input type="text" class="form-control m-1" placeholder="Naam product">
+
+<div class="input-group m-1">
+    <input type="number" class="form-control" aria-label="Text input with dropdown button" placeholder="Hoeveelheid">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">Dropdown</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item">Stuk(s)</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item">g</a>
+            <a class="dropdown-item">Kg</a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a class="dropdown-item">ml</a>
+            <a class="dropdown-item">L</a>
+        </div>
+    </div>
+</div>
+
+<input type="number" class="form-control m-1" placeholder="Aankoopprijs">
+<input type="date" class="form-control m-1" placeholder="Houdbaarheids datum">
+<input type="text" class="form-control m-1" placeholder="Leverancier">
+<div class="form-check m-1">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+    <label class="form-check-label" for="flexRadioDefault1">
+        Is voeding
+    </label>
+</div>
+<div class="form-check m-1">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+    <label class="form-check-label" for="flexRadioDefault2">
+        Is geen voeding
+    </label>
+</div>
+<button type="submit" class="btn btn-primary m-1 w-100">Voeg toe</button>
