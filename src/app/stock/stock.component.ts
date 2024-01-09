@@ -22,10 +22,10 @@ export class StockComponent {
   fetchMyData() {
     fetch(this.url)
       .then(response => response.json())
-      .then(json =>{
+      .then(json => {
         this.stockitems = json
         // save stockitems as rowData
-        this.rowData=this.stockitems
+        this.rowData = this.stockitems
       })
   }
 
@@ -33,7 +33,7 @@ export class StockComponent {
     this.fetchMyData();
   }
   // assign rowData for module
-  rowData=this.stockitems;
+  rowData = this.stockitems;
   // Define table columns
   colDefs: ColDef[] = [
     { field: "id" },
