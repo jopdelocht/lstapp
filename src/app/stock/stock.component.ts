@@ -40,7 +40,6 @@ export class StockComponent {
     { field: "name", filter: true },
     { field: "quantity", filter: true },
     { field: "ingredients", filter: true },
-    { field: "price", filter: true },
     { field: "expirationDate", filter: true },
     { field: "supplier", filter: true },
     { field: "isFood", filter: true }
