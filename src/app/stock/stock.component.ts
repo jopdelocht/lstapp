@@ -15,7 +15,7 @@ import { ColDef } from 'ag-grid-community';
   styleUrl: './stock.component.css'
 })
 export class StockComponent {
-  url: string = 'http://localhost:3000/stock';
+  url: string = 'http://127.0.0.1:8000/api/stockitems';
 
   stockitems: any[] = [];
 
@@ -36,7 +36,7 @@ export class StockComponent {
   rowData = this.stockitems;
   // Define table columns
   colDefs: ColDef[] = [
-    { field: "id"},
+    { field: "id" },
     { field: "name", filter: true },
     { field: "quantity", filter: true },
     { field: "ingredients", filter: true },
