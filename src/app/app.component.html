@@ -8,19 +8,46 @@
       <a class="navbar-brand" href="#"><img src="../../assets/logo.png" alt="logo" class="logo"></a>
       <!-- the logo is on the left side of the navbar, the ms auto moves the rest of the items to the right -->
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/home"><i class="m-1 fa-solid fa-house"></i>Home</a>
+        <li class="nav-item m-1">
+          <a class="btn btn-secondary" href=""><i class="m-1 fas fa-house"></i>Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/register">
-            <i class="m-1 fa-solid fa-user-plus"></i>Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/stock"><i class="m-1 fa-solid fa-eye"></i>Stock overzicht</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/stockadd"><i class="m-1 fa-solid fa-plus"></i>Stock aanvullen</a>
-        </li>
+        
+        <div class="dropdown m-1">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-cubes"></i>
+            Stock
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/stock">Overzicht</a></li>
+            <li><a class="dropdown-item" href="/stockadd">Aanvullen</a></li>
+            <li><a class="dropdown-item" href="#">Wijzigen</a></li>
+          </ul>
+        </div>
+
+        <div class="dropdown m-1">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-egg"></i>
+            Ingrediënten
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/ingredient">Overzicht</a></li>
+            <li><a class="dropdown-item" href="/ingredientadd">Aanvullen</a></li>
+            <li><a class="dropdown-item" href="#">Wijzigen</a></li>
+          </ul>
+        </div>
+
+        <div class="dropdown m-1">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="m-1 fas fa-user"></i>
+            Account
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Login</a></li>
+            <li><a class="dropdown-item" href="/register">Registreren</a></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
+        </div>
+
       </ul>
     </div>
   </div>
