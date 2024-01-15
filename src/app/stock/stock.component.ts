@@ -36,7 +36,7 @@ export class StockComponent {
   rowData = this.stockitems;
   // Define table columns
   colDefs: ColDef[] = [
-    { field: "id" },
+    { field: "id", hide: true },
     { field: "name", filter: true },
     { field: "quantity", filter: true },
     { field: "ingredients", filter: true },
