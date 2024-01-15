@@ -38,7 +38,7 @@ export class IngredientComponent {
   // Define table columns
   colDefs: ColDef[] = [
     { field: "id" },
-    { field: "name", filter: true },
-    { field: "allergens", filter: true },
+    { field: "ingredient", filter: true },
+    { field: "allergen", filter: true },
   ]
 }
