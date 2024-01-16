@@ -14,10 +14,11 @@ import { UserService } from '../shared/user.service';
 export class LoginComponent {
   username!:  string;
 	password!:  string;
+  email!:     string;
   constructor(private  userService:  UserService) { }
 
   async onSubmit(){
-    const token = await this.userService.login(this.username, this.password);
+    const token = await this.userService.login(this.username, this.password, this.email);
     if (token){
       localStorage.setItem('token', token)
       console.log("Access granted")
@@ -26,11 +27,6 @@ export class LoginComponent {
     }
     this.username = '';
     this.password = '';
-  }
-
-  // Logout: delete token
-  logout(){
-    localStorage.removeItem('token');
-    console.log("Logged out successfully")
+    this.email ='';
   }
 }

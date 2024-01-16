@@ -10,10 +10,11 @@ export class UserService {
   userURL:string='http://localhost:8000/api/users';
 
   // User register method => Hashing on backend
-  async register(username: any, password: any){
+  async register(username: any, password: any, email:any){
     const user = {
       name: username,
-      password: password
+      password: password,
+      email: email
     };
     const result = await fetch(this.userURL, {
       method: 'POST',
@@ -31,14 +32,13 @@ export class UserService {
   }
 
   // Login method to return token
-  async login(username:string, password:string){
+  async login(username:string, password:string, email:string){
     let users = await this.getUsers();
     let user = users.find((u: {name:string; password: string}) => u.name ===username);
-    if (user && password===user.password){
+    if (user && password===user.password && email===user.email){
       return user.id.toString();
     }
     return null;
   }
 
-  constructor() { }
 }

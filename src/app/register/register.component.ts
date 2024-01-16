@@ -28,12 +28,14 @@ export class RegisterComponent {
   onSubmit() {
     console.log(this.username);
     console.log(this.password);
+    console.log(this.email)
 
     // acces the service and send username and password
-    this.userService.register(this.username, this.password);
+    this.userService.register(this.username, this.password, this.email);
 
     // clear the fields;
     this.username = '';
     this.password = '';
+    this.email = '';
   }
 }
