@@ -5,7 +5,8 @@ import { RouterOutlet } from '@angular/router';
 import { GramsToKilosPipe } from '../grams-to-kilos.pipe';
 // import grid module
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
+import { StockService } from '../shared/stock.service';
+import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
 
 @Component({
   selector: 'app-stock',
@@ -15,36 +16,40 @@ import { ColDef } from 'ag-grid-community';
   styleUrl: './stock.component.css'
 })
 export class StockComponent {
-  url: string = 'http://127.0.0.1:8000/api/stockitems';
+  apiUrl = this.stockService.url;
+  stockItems: any[] = [];
 
-  stockitems: any[] = [];
+  constructor(private stockService: StockService) { }
 
   fetchMyData() {
-    fetch(this.url)
+    fetch(this.apiUrl)
       .then(response => response.json())
       .then(json => {
-        this.stockitems = json
+        this.stockItems = json
         // save stockitems as rowData
-        this.rowData = this.stockitems
-      })
+        this.rowData = this.stockItems
+      }).catch(error => console.log(error));
   }
 
   ngOnInit() {
     this.fetchMyData();
   }
   // assign rowData for module
-  rowData = this.stockitems;
+  rowData = this.stockItems;
   // Define table columns
   colDefs: ColDef[] = [
     {
       field: "id",
-      hide: true
+      filter: true,
+      maxWidth: 75
     },
     {
       field: "name",
       filter: true,
       headerName: 'Beschrijving',
-      minWidth: 280
+      minWidth: 280,
+      sortIndex: 0,
+      sort: 'asc'
     },
     {
       field: "quantity",
@@ -64,7 +69,9 @@ export class StockComponent {
     {
       field: "supplier",
       filter: true,
-      headerName: 'Leverancier'
+      headerName: 'Leverancier',
+      sortIndex: 1,
+      sort: 'asc'
     },
     {
       field: "isfood",

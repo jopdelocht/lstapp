@@ -1,4 +1,4 @@
-<input type="text" class="form-control m-1" placeholder="Naam product">
+<!-- <input type="text" class="form-control m-1" placeholder="Naam product">
 
 <div class="input-group m-1">
     <input type="number" class="form-control" aria-label="Text input with dropdown button" placeholder="Hoeveelheid">
@@ -31,4 +31,23 @@
         Is geen voeding
     </label>
 </div>
-<button type="submit" class="btn btn-primary m-1 w-100">Voeg toe</button>
+<button type="submit" class="btn btn-primary m-1 w-100">Voeg toe</button> -->
+
+<!-- <h2>My stockitems</h2>
+@for(stockItem of stockItems; track stockItem.id) {
+<li class="liststockitem">{{ stockItem.name}}
+    } -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
+            <button type="button" class="btn btn-primary" (click)="postTest()">Post test</button>
+        </div>
+        <div class="col-md-7">
+            <!-- AG Grid version of the table -->
+            <ag-grid-angular class="ag-theme-quartz m-2" style="height:85vh;" [rowData]="rowData" [columnDefs]="colDefs"
+                [pagination]="true" [paginationAutoPageSize]="true">
+            </ag-grid-angular>
+        </div>
+    </div>
+</div>
