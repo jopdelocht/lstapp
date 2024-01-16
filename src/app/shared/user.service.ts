@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root'
@@ -35,10 +36,9 @@ export class UserService {
   async login(username:string, password:string, email:string){
     let users = await this.getUsers();
     let user = users.find((u: {name:string; password: string}) => u.name ===username);
-    if (user && password===user.password && email===user.email){
-      return user.id.toString();
+    if (user && bcrypt.compareSync(password, user.password)){
+      return user.remember_token.toString();
     }
     return null;
   }
-
 }
