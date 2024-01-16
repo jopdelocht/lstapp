@@ -1,1 +1,13 @@
-<input type="text" class="form-control m-1" placeholder="Naam ingredient">
+<div class="input-group mt-2 mb-1">
+    <input type="text" class="form-control" placeholder="Naam ingredient" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" (click)="postNewIngredient()" type="submit" value="submit" id="button-addon2">Voeg toe</button>
+  </div>
+
+<!-- input for the checkboxes from TS -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div id="checkboxes" class="allergens"></div>
+        </div>
+    </div>
+</div>
