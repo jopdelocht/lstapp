@@ -1,1 +1,14 @@
-<p>Register works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Registreren</h1>
+            <div class="inputClass d-grid gap-2">
+                <input type="text" placeholder="Gebruikersnaam" class="form-control mt-1" [(ngModel)]="username">
+                <input type="{{showPassword ? 'text' : 'password'}}" placeholder="Wachtwoord" class="form-control mt-1" [(ngModel)]="password">
+                <button class="btn btn-primary mt-2" (click)="togglePasswordVisibility()"><i class="fa-solid fa-eye-slash"></i> Toon Wachtwoord</button>
+                <hr>
+                <button class="btn btn-secondary" (click)="onSubmit()" type="submit">Registreren</button>
+            </div>
+        </div>
+    </div>
+  </div>
