@@ -12,10 +12,10 @@ import { UserService } from '../shared/user.service';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  password: any;
-  username: any;
+  password!: string;
+  username!: string;
   showPassword: boolean = false;
-  email: any;
+  email!: string;
 
   constructor(private userService: UserService) {
 
@@ -36,6 +36,6 @@ export class RegisterComponent {
     // clear the fields;
     this.username = '';
     this.password = '';
-    this.email = '';
+    this.email = '' ;
   }
 }

@@ -15,7 +15,12 @@ export class LoginComponent {
   username!:  string;
 	password!:  string;
   email!:     string;
+  showPassword: boolean = false;
   constructor(private  userService:  UserService) { }
+  
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
   async onSubmit(){
     const token = await this.userService.login(this.username, this.password, this.email);
@@ -29,4 +34,6 @@ export class LoginComponent {
     this.password = '';
     this.email ='';
   }
+
+
 }
