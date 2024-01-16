@@ -1,4 +1,4 @@
-.btn-secondary {
+.btn-primary {
     --bs-btn-color: black;
     --bs-btn-bg: #efb8c9;
     --bs-btn-border-color: none;
@@ -15,7 +15,7 @@
     --bs-btn-disabled-border-color: none;
 }
 
-.btn-primary {
+.btn-secondary {
     --bs-btn-color: black;
     --bs-btn-bg: #efb8c9;
     --bs-btn-border-color: none;
@@ -30,6 +30,7 @@
     --bs-btn-disabled-color: none;
     --bs-btn-disabled-bg: none;
     --bs-btn-disabled-border-color: none;
+    
 }
 
 .inputClass{

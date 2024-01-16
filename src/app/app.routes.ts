@@ -6,6 +6,8 @@ import { RegisterComponent } from './register/register.component';
 import { IngredientComponent } from './ingredient/ingredient.component';
 import { IngredientaddComponent } from './ingredientadd/ingredientadd.component';
 import { IngredienteditComponent } from './ingredientedit/ingredientedit.component';
+import { StockeditComponent } from './stockedit/stockedit.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {
@@ -26,8 +28,8 @@ export const routes: Routes = [
         component: StockaddComponent
     },
     {
-        path: 'register',
-        component: RegisterComponent
+        path: 'stockedit',
+        component: StockeditComponent
     },
     {
         path: 'ingredient',
@@ -40,5 +42,14 @@ export const routes: Routes = [
     {
         path: 'ingredientedit',
         component: IngredienteditComponent
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
     }
 ];

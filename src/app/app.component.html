@@ -11,21 +11,23 @@
         <li class="nav-item m-1">
           <a class="btn btn-secondary" href=""><i class="m-1 fas fa-house"></i>Home</a>
         </li>
-        
+
         <div class="dropdown m-1">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             <i class="fa-solid fa-cubes"></i>
             Stock
           </button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/stock">Overzicht</a></li>
             <li><a class="dropdown-item" href="/stockadd">Aanvullen</a></li>
-            <li><a class="dropdown-item" href="#">Wijzigen</a></li>
+            <li><a class="dropdown-item" href="/stockedit">Wijzigen</a></li>
           </ul>
         </div>
 
         <div class="dropdown m-1">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             <i class="fa-solid fa-egg"></i>
             Ingrediënten
           </button>
@@ -37,17 +39,17 @@
         </div>
 
         <div class="dropdown m-1">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
             <i class="m-1 fas fa-user"></i>
             Account
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Login</a></li>
+            <li><a class="dropdown-item" href="/login">Login</a></li>
             <li><a class="dropdown-item" href="/register">Registreren</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
+            <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
           </ul>
         </div>
-
       </ul>
     </div>
   </div>

@@ -36,13 +36,40 @@ export class StockComponent {
   rowData = this.stockitems;
   // Define table columns
   colDefs: ColDef[] = [
-    { field: "id" },
-    { field: "name", filter: true },
-    { field: "quantity", filter: true },
-    { field: "ingredients", filter: true },
-    { field: "price", filter: true },
-    { field: "expirationDate", filter: true },
-    { field: "supplier", filter: true },
-    { field: "isFood", filter: true }
+    {
+      field: "id",
+      hide: true
+    },
+    {
+      field: "name",
+      filter: true,
+      headerName: 'Beschrijving',
+      minWidth: 280
+    },
+    {
+      field: "quantity",
+      filter: true,
+      headerName: 'Hoeveelheid'
+    },
+    {
+      field: "ingredient",
+      filter: true,
+      headerName: 'Ingrediënten'
+    },
+    {
+      field: "expirationdate",
+      filter: true,
+      headerName: 'Vervaldatum'
+    },
+    {
+      field: "supplier",
+      filter: true,
+      headerName: 'Leverancier'
+    },
+    {
+      field: "isfood",
+      filter: true,
+      headerName: 'Voeding'
+    }
   ]
 }
