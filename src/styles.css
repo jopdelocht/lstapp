@@ -5,16 +5,13 @@
 @import 'ag-grid-community/styles/ag-theme-quartz.css';
 
 /* BASIC COLORS
-1) #feebf1 */
+Kleur donker roze: #B16F6E
+Banner kleur lichtroze: #FEEBF1 */
 
 .navbar.navbar-expand-lg.navbar-light {
     background-color: #feebf1;
 }
 
-/* styling for the navigation links on hover */
-a.nav-link:hover {
-    background-color: #d5c1c7;
-}
 
 /* styling for list of ingredients coming from the stock-items  */
 .ingredients-list {
@@ -25,8 +22,4 @@ a.nav-link:hover {
 /* width of the logo in the navbar */
 img.logo {
     width: 4rem;
-}
-
-th {
-    font-size: large;
 }

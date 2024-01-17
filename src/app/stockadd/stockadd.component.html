@@ -1,4 +1,4 @@
-<input type="text" class="form-control m-1" placeholder="Naam product">
+<!-- <input type="text" class="form-control m-1" placeholder="Naam product">
 
 <div class="input-group m-1">
     <input type="number" class="form-control" aria-label="Text input with dropdown button" placeholder="Hoeveelheid">
@@ -31,4 +31,60 @@
         Is geen voeding
     </label>
 </div>
-<button type="submit" class="btn btn-primary m-1 w-100">Voeg toe</button>
+<button type="submit" class="btn btn-primary m-1 w-100">Voeg toe</button> -->
+
+<!-- <h2>My stockitems</h2>
+@for(stockItem of stockItems; track stockItem.id) {
+<li class="liststockitem">{{ stockItem.name}}
+    } -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5 leftcontainer mt-2">
+            <!-- <button type="button" class="btn btn-primary" (click)="postTest()">Post test</button> -->
+            <div id="header" class="text-center m-2">
+                <h3>Product toevoegen</h3>
+            </div>
+            <input type="text" class="form-control mt-3" placeholder="Beschrijving">
+            <div class="input-group mt-2">
+                <input type="number" class="form-control" aria-label="Text input with dropdown button"
+                    placeholder="Hoeveelheid">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Eenheid</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item">Stuk(s)</a>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <a class="dropdown-item">g</a>
+                        <a class="dropdown-item">kg</a>
+                        <div role="separator" class="dropdown-divider"></div>
+                        <a class="dropdown-item">ml</a>
+                        <a class="dropdown-item">l</a>
+                    </div>
+                </div>
+            </div>
+            <input type="date" class="form-control mt-2" placeholder="Vervaldatum">
+            <input type="text" class="form-control mt-2" placeholder="Leverancier">
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Voeding
+                </label>
+            </div>
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Geen voeding
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Toevoegen</button>
+        </div>
+
+        <div class="col-md-7">
+            <!-- AG Grid version of the table -->
+            <ag-grid-angular class="ag-theme-quartz m-2" style="height:85vh;" [rowData]="rowData" [columnDefs]="colDefs"
+                [pagination]="true" [paginationAutoPageSize]="true">
+            </ag-grid-angular>
+        </div>
+    </div>
+</div>
