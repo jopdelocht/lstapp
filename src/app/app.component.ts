@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,12 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  constructor(private router: Router) {
+  }
   // Logout: delete token
   logout(){
     localStorage.removeItem('token');
-    console.log("Logged out successfully")
+    alert("Succesvol uitgelogd")
+    this.router.navigate(['/home']);
   }
 }

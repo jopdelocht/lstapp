@@ -26,9 +26,10 @@ export class LoginComponent {
     const token = await this.userService.login(this.username, this.password);
     if (token){
       localStorage.setItem('token', token)
-      console.log("Access granted")
+      alert("Ingelogd")
+      this.userService.goToHome();
     } else {
-      console.log("Access denied")
+      alert("Foutieve inloggegevens")
     }
     this.username = '';
     this.password = '';

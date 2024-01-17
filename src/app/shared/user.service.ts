@@ -31,13 +31,13 @@ export class UserService {
     body: JSON.stringify(user)
   });
   // confirm user created
-  console.log("User created Succesfully")
+  alert("Succesvol geregistreerd")
   // call method to go to login
   this.goToLogin();
   return result.json();
 }else{
   // error if user or email already exists
-  console.log("You need a unique username email")
+  alert("Gebruikersnaam en/of email bestaat al")
 }
 }
 
@@ -60,9 +60,12 @@ export class UserService {
     }
     return null;
   }
-
-  // go to login
-  goToLogin() : void {
-    this.router.navigateByUrl('/login');
-    }
+    // go to login
+    goToLogin() : void {
+      this.router.navigateByUrl('/login');
+      }
+    // go to  home
+    goToHome() : void {
+      this.router.navigateByUrl('/home');
+      }
 }

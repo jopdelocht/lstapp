@@ -33,13 +33,22 @@ export class RegisterComponent {
     // console.log(this.password);
     // console.log(this.email)
 
-    // acces the service and send username and password
-    this.userService.register(this.username, this.password, this.email);
+    // check if all fields are filled
+    if (!this.username || !this.password || !this.email) {
+      alert('Vul alle velden in');
+    }else{
+      // check if email is valid (containing @ and .)
+      if (this.email.includes("@") === false || this.email.includes(".") === false) {
+       alert('Voer een geldig email-adres in'); 
+      }else{
+        // call method to register from userservice
+      this.userService.register(this.username, this.password, this.email);
 
-    // clear the fields;
-    this.username = '';
-    this.password = '';
-    this.email = '' ;
-    
+      // clear the fields;
+      this.username = '';
+      this.password = '';
+      this.email = '' ;
+      }   
+    }
   }
 }
