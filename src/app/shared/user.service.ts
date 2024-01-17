@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as bcrypt from 'bcryptjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
+  constructor(private router: Router) { }
 
   // Put Users API Endpoint URL in constant
   userURL:string='http://localhost:8000/api/users';
@@ -28,11 +30,14 @@ export class UserService {
     },
     body: JSON.stringify(user)
   });
+  // confirm user created
   console.log("User created Succesfully")
+  // call method to go to login
+  this.goToLogin();
   return result.json();
-  // return error if user already exists
 }else{
-  console.log("You need a unique username and password")
+  // error if user or email already exists
+  console.log("You need a unique username email")
 }
 }
 
@@ -47,10 +52,17 @@ export class UserService {
   // Login method to return token
   async login(username:string, password:string){
     let users = await this.getUsers();
+    // check if user exists
     let user = users.find((u: {name:string; password: string}) => u.name ===username);
+    // check if password is correct
     if (user && bcrypt.compareSync(password, user.password)){
       return user.remember_token.toString();
     }
     return null;
   }
+
+  // go to login
+  goToLogin() : void {
+    this.router.navigateByUrl('/login');
+    }
 }
