@@ -9,6 +9,9 @@ import { IngredienteditComponent } from './ingredientedit/ingredientedit.compone
 import { StockeditComponent } from './stockedit/stockedit.component';
 import { LoginComponent } from './login/login.component';
 
+// Auth guard and login component
+import { authGuard } from './auth.guard';
+
 export const routes: Routes = [
     {
         path: '',
@@ -25,10 +28,12 @@ export const routes: Routes = [
     },
     {
         path: 'stockadd',
+        // canActivate: [authGuard],
         component: StockaddComponent
     },
     {
         path: 'stockedit',
+        // canActivate: [authGuard],
         component: StockeditComponent
     },
     {
@@ -37,10 +42,12 @@ export const routes: Routes = [
     },
     {
         path: 'ingredientadd',
+        // canActivate: [authGuard],
         component: IngredientaddComponent
     },
     {
         path: 'ingredientedit',
+        // canActivate: [authGuard],
         component: IngredienteditComponent
     },
     {
