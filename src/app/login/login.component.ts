@@ -14,7 +14,7 @@ import { UserService } from '../shared/user.service';
 export class LoginComponent {
   username!:  string;
 	password!:  string;
-  email!:     string;
+  // email!:     string;
   showPassword: boolean = false;
   constructor(private  userService:  UserService) { }
   
@@ -23,7 +23,7 @@ export class LoginComponent {
   }
 
   async onSubmit(){
-    const token = await this.userService.login(this.username, this.password, this.email);
+    const token = await this.userService.login(this.username, this.password);
     if (token){
       localStorage.setItem('token', token)
       console.log("Access granted")
@@ -32,7 +32,7 @@ export class LoginComponent {
     }
     this.username = '';
     this.password = '';
-    this.email ='';
+    // this.email ='';
   }
 
 

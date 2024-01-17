@@ -21,14 +21,17 @@ export class RegisterComponent {
 
   }
 
+  ngOnInit(){
+    this.userService.getUsers()    
+  }
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
   onSubmit() {
-    console.log(this.username);
-    console.log(this.password);
-    console.log(this.email)
+    // console.log(this.username);
+    // console.log(this.password);
+    // console.log(this.email)
 
     // acces the service and send username and password
     this.userService.register(this.username, this.password, this.email);
@@ -37,5 +40,6 @@ export class RegisterComponent {
     this.username = '';
     this.password = '';
     this.email = '' ;
+    
   }
 }
