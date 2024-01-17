@@ -12,24 +12,36 @@ export class UserService {
 
   // User register method => Hashing on backend
   async register(username: any, password: any, email:any){
-    const user = {
-      name: username,
-      password: password,
-      email: email
-    };
-    const result = await fetch(this.userURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(user)
-    });
-    return result.json();
-  }
+    // call array of users from API
+    let users = await this.getUsers();
+    // check if user or email already exists and only run register if they don't
+    if (!users.some((user: { name: any; }) => user.name === username) && !users.some((user: { email: any; }) => user.email === email)) {
+  const user = {
+    name: username,
+    password: password,
+    email: email
+  };
+  const result = await fetch(this.userURL, {
+    method: 'POST',
+    headers: {
+      'Content-Type':'application/json'
+    },
+    body: JSON.stringify(user)
+  });
+  console.log("User created Succesfully")
+  return result.json();
+  // return error if user already exists
+}else{
+  console.log("You need a unique username and password")
+}
+}
 
   // get users
   async getUsers() {
-    return (await fetch(this.userURL)).json()
+    const response = await fetch(this.userURL);
+    const users = await response.json();
+    // console.log(users)
+    return users;
   }
 
   // Login method to return token
