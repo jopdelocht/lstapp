@@ -33,6 +33,16 @@ export class StockaddComponent {
     this.stockService.postStockItem();
     this.getStockItems();
   }
+
+  // This function checks if the incoming data from isfood is 1 or 0 --> returns a specific icon
+  isFoodRenderer(params: any) {
+    if (params.value === 1) {
+      return '<i class="fa-regular fa-circle-check"></i>';
+    } else {
+      return '<i class="fa-regular fa-circle-xmark"></i>';
+    }
+  }
+
   ngOnInit() {
     this.getStockItems();
   }
@@ -61,14 +71,16 @@ export class StockaddComponent {
       field: "supplier",
       filter: true,
       headerName: 'Leverancier',
-      maxWidth: 150,
+      maxWidth: 175,
       sortIndex: 1,
       sort: 'asc'
     },
     {
       field: "isfood",
       filter: true,
-      headerName: 'Voeding'
+      headerName: 'Voeding',
+      cellRenderer: this.isFoodRenderer.bind(this),
+      cellClass: 'center'
     }
   ]
 }

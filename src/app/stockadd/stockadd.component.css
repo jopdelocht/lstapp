@@ -1,0 +1,37 @@
+h3 {
+    color: #B16F6E;
+}
+
+.btn-primary {
+    --bs-btn-color: black;
+    --bs-btn-bg: #FEEBF1;
+    --bs-btn-border-color: none;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #B16F6E;
+    --bs-btn-hover-border-color: none;
+    --bs-btn-focus-shadow-rgb: 130, 138, 145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #B16F6E;
+    --bs-btn-active-border-color: none;
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: none;
+    --bs-btn-disabled-bg: none;
+    --bs-btn-disabled-border-color: none;
+}
+
+.btn.btn-outline-secondary.dropdown-toggle {
+    --bs-btn-color: black;
+    --bs-btn-bg: #FEEBF1;
+    --bs-btn-border-color: none;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #B16F6E;
+    --bs-btn-hover-border-color: none;
+    --bs-btn-focus-shadow-rgb: 130, 138, 145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #B16F6E;
+    --bs-btn-active-border-color: none;
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: none;
+    --bs-btn-disabled-bg: none;
+    --bs-btn-disabled-border-color: none;
+}
