@@ -16,12 +16,13 @@ import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
   styleUrl: './stock.component.css'
 })
 export class StockComponent {
-  stockitemsURL = this.stockService.stockitemsURL;
-  stockItems: any[] = [];
 
   constructor(private stockService: StockService) { }
 
-  fetchMyData() {
+  stockitemsURL = this.stockService.stockitemsURL;
+  stockItems: any[] = [];
+
+  fetchStock() {
     fetch(this.stockitemsURL)
       .then(response => response.json())
       .then(json => {
@@ -32,7 +33,7 @@ export class StockComponent {
   }
 
   ngOnInit() {
-    this.fetchMyData();
+    this.fetchStock();
   }
   // assign rowData for module
   rowData = this.stockItems;
