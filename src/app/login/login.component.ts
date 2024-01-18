@@ -27,7 +27,7 @@ export class LoginComponent {
     if (token){
       localStorage.setItem('token', token)
       alert("Ingelogd")
-      this.userService.goToHome();
+      location.replace('http://localhost:4200/home');
     } else {
       alert("Foutieve inloggegevens")
     }

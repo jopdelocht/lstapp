@@ -11,12 +11,19 @@ import { Router } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+isLoggedIn: any;
   constructor(private router: Router) {
   }
   // Logout: delete token
   logout(){
     localStorage.removeItem('token');
     alert("Succesvol uitgelogd")
-    this.router.navigate(['/home']);
+    // this.router.navigate(['/home']);
+    location.replace('http://localhost:4200/home');
+  }
+  ngOnInit(){
+   if (localStorage.getItem('token')){
+     this.isLoggedIn = true;
+   } 
   }
 }
