@@ -16,13 +16,13 @@ import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
   styleUrl: './stock.component.css'
 })
 export class StockComponent {
-  apiUrl = this.stockService.url;
+  stockitemsURL = this.stockService.stockitemsURL;
   stockItems: any[] = [];
 
   constructor(private stockService: StockService) { }
 
   fetchMyData() {
-    fetch(this.apiUrl)
+    fetch(this.stockitemsURL)
       .then(response => response.json())
       .then(json => {
         this.stockItems = json
@@ -39,12 +39,7 @@ export class StockComponent {
   // Define table columns
   colDefs: ColDef[] = [
     {
-      field: "id",
-      filter: true,
-      maxWidth: 75
-    },
-    {
-      field: "name",
+      field: "product",
       filter: true,
       headerName: 'Beschrijving',
       minWidth: 280,
@@ -64,14 +59,14 @@ export class StockComponent {
     {
       field: "expirationdate",
       filter: true,
-      headerName: 'Vervaldatum'
+      headerName: 'Vervaldatum',
+      sortIndex: 1,
+      sort: 'asc'
     },
     {
       field: "supplier",
       filter: true,
-      headerName: 'Leverancier',
-      sortIndex: 1,
-      sort: 'asc'
+      headerName: 'Leverancier'
     },
     {
       field: "isfood",
