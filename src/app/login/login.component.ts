@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // Services
 import { UserService } from '../shared/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
 	password!:  string;
   // email!:     string;
   showPassword: boolean = false;
-  constructor(private  userService:  UserService) { }
+  constructor(private  userService:  UserService, private toastr: ToastrService) { }
   
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
@@ -26,15 +27,17 @@ export class LoginComponent {
     const token = await this.userService.login(this.username, this.password);
     if (token){
       localStorage.setItem('token', token)
-      alert("Ingelogd")
-      location.replace('http://localhost:4200/home');
+      this.toastr.success('Ingelogd', 'Succes');
+      setTimeout((this.redirectToHome), 2000);
     } else {
-      alert("Foutieve inloggegevens")
+      this.toastr.error('Foutieve inloggegevens', 'Error');
     }
     this.username = '';
     this.password = '';
     // this.email ='';
   }
-
+  redirectToHome(){
+    location.replace('http://localhost:4200/home');
+  }
 
 }
