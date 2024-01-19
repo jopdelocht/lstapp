@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 // services
 import { UserService } from '../shared/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,7 @@ export class RegisterComponent {
   showPassword: boolean = false;
   email!: string;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private toastr: ToastrService) {
 
   }
 
@@ -35,11 +36,11 @@ export class RegisterComponent {
 
     // check if all fields are filled
     if (!this.username || !this.password || !this.email) {
-      alert('Vul alle velden in');
+      this.toastr.error('Vul alle velden in', 'Error');
     }else{
       // check if email is valid (containing @ and .)
       if (this.email.includes("@") === false || this.email.includes(".") === false) {
-       alert('Voer een geldig email-adres in'); 
+       this.toastr.error('Voer een geldig email-adres in', 'Error');
       }else{
         // call method to register from userservice
       this.userService.register(this.username, this.password, this.email);

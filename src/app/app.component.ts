@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { Router } from '@angular/router';
+
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +13,17 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 isLoggedIn: any;
-  constructor(private router: Router) {
+  constructor( private toastr: ToastrService) {
+  }
+
+  redirectToHome(){
+    location.replace('http://localhost:4200/home');
   }
   // Logout: delete token
   logout(){
     localStorage.removeItem('token');
-    alert("Succesvol uitgelogd")
-    // this.router.navigate(['/home']);
-    location.replace('http://localhost:4200/home');
+    this.toastr.success('Uitgelogd', 'Succes');
+    setTimeout((this.redirectToHome), 2000);
   }
   ngOnInit(){
    if (localStorage.getItem('token')){
