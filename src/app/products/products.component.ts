@@ -5,38 +5,48 @@ import { RouterOutlet } from '@angular/router';
 import { GramsToKilosPipe } from '../grams-to-kilos.pipe';
 // import grid module
 import { AgGridModule } from 'ag-grid-angular';
-import { StockService } from '../shared/stock.service';
+import { ProductsService } from '../shared/products.service';
 import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
 
 @Component({
-  selector: 'app-stock',
+  selector: 'app-products',
   standalone: true,
   imports: [CommonModule, RouterOutlet, GramsToKilosPipe, AgGridModule],
-  templateUrl: './stock.component.html',
-  styleUrl: './stock.component.css'
+  templateUrl: './products.component.html',
+  styleUrl: './products.component.css'
 })
-export class StockComponent {
+export class ProductsComponent {
 
-  constructor(private stockService: StockService) { }
+  constructor(private productsService: ProductsService) { }
 
-  stockitemsURL = this.stockService.stockitemsURL;
-  stockItems: any[] = [];
+  productsURL = this.productsService.productsURL;
+  productArray: any[] = [];
 
-  fetchStock() {
-    fetch(this.stockitemsURL)
+  fetchProducts() {
+    fetch(this.productsURL)
       .then(response => response.json())
       .then(json => {
-        this.stockItems = json
-        // save stockitems as rowData
-        this.rowData = this.stockItems
+        this.productArray = json
+        // save products as rowData
+        this.rowData = this.productArray
       }).catch(error => console.log(error));
   }
 
   ngOnInit() {
-    this.fetchStock();
+    this.fetchProducts();
   }
+
+  // This function checks if the incoming data from isfood is 1 or 0 --> returns a specific icon
+  isFoodRenderer(params: any) {
+    if (params.value === 1) {
+      return '<i class="fa-regular fa-circle-check"></i>';
+    } else {
+      return '<i class="fa-regular fa-circle-xmark"></i>';
+    }
+  }
+
   // assign rowData for module
-  rowData = this.stockItems;
+  rowData = this.productArray;
   // Define table columns
   colDefs: ColDef[] = [
     {
@@ -48,31 +58,28 @@ export class StockComponent {
       sort: 'asc'
     },
     {
-      field: "quantity",
-      filter: true,
-      headerName: 'Hoeveelheid'
-    },
-    {
       field: "ingredient",
       filter: true,
       headerName: 'Ingrediënten'
     },
     {
-      field: "expirationdate",
+      field: "allergen",
       filter: true,
-      headerName: 'Vervaldatum',
-      sortIndex: 1,
-      sort: 'asc'
+      headerName: 'Allergenen'
     },
     {
-      field: "supplier",
+      field: "type",
       filter: true,
-      headerName: 'Leverancier'
+      headerName: 'Type'
     },
     {
       field: "isfood",
       filter: true,
-      headerName: 'Voeding'
+      headerName: 'Voeding',
+      cellRenderer: this.isFoodRenderer.bind(this),
+      cellClass: 'center',
+      maxWidth: 115
     }
+
   ]
 }
