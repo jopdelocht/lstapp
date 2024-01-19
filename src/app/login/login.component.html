@@ -4,7 +4,7 @@
 			<h1>Inloggen</h1>
             <div class="inputClass d-grid gap-2">
                 <input  class="form-control username"  type="text"  [(ngModel)]="username"  placeholder="Gebruikersnaam">
-                <input  class="form-control email"  type="email"  [(ngModel)]="email"  placeholder="E-mail">
+                <!-- <input  class="form-control email"  type="email"  [(ngModel)]="email"  placeholder="E-mail"> -->
                 <input  class="form-control password"  type="{{showPassword ? 'text' : 'password'}}"  [(ngModel)]="password"  placeholder="Wachtwoord">
                 <button class="btn btn-primary mt-2" (click)="togglePasswordVisibility()"><i class="fa-solid fa-eye-slash"></i> Toon Wachtwoord</button>
                 <hr>

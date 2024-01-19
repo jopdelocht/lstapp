@@ -45,9 +45,15 @@
             Account
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/login">Login</a></li>
-            <li><a class="dropdown-item" href="/register">Registreren</a></li>
-            <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
+            <li *ngIf="!isLoggedIn" class="nav-item">
+              <a class="dropdown-item" href="/login">Login</a>
+            </li>
+            <li *ngIf="!isLoggedIn" class="nav-item">
+              <a class="dropdown-item" href="/register">Registreren</a>
+            </li>
+            <li *ngIf="isLoggedIn" class="nav-item">
+              <button class="dropdown-item" (click)="logout()">Logout</button>
+            </li>
           </ul>
         </div>
       </ul>
