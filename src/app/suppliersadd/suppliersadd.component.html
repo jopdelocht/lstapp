@@ -1,1 +1,19 @@
-<p>suppliersadd works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5 leftcontainer mt-2">
+            <!-- <button type="button" class="btn btn-primary" (click)="postTest()">Post test</button> -->
+            <div id="header" class="text-center m-2">
+                <h3>Leverancier toevoegen</h3>
+            </div>
+            <input type="text" class="form-control mt-3" [(ngModel)]="supplierName" placeholder="Naam leverancier">
+            <!-- <input class="form-control mb-1  " type="text" [(ngModel)]="myContent" placeholder="New present"> -->
+            <button type="submit" class="btn btn-primary mt-2 w-100" (click)="postItem()">Toevoegen</button>
+        </div>
+
+        <div class="col-md-7">
+            <!-- AG Grid version of the table -->
+            <ag-grid-angular class="ag-theme-quartz m-2" style="height:85vh;" [rowData]="rowData" [columnDefs]="colDefs"
+                [pagination]="true" [paginationAutoPageSize]="true"></ag-grid-angular>
+        </div>
+    </div>
+</div>

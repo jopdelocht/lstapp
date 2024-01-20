@@ -14,3 +14,11 @@
     --bs-btn-disabled-bg: none;
     --bs-btn-disabled-border-color: none;
 }
+
+.dropdown-divider{
+    border-top: 2px solid var(--bs-dropdown-divider-bg) !important;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: #B16F6E;
+}
