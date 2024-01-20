@@ -22,12 +22,10 @@ export class StockaddComponent {
   apiUrl = this.stockService.stockitemsURL;
   // assign rowData for module
   rowData = this.stockItems;
-  productName: string = '';
-  productQuantity: number = 0;
-  productDate: Date = new Date();
-  productSupplier: number = 0;
-  productIngredient: number = 0;
-  productIsFood: number = 0;
+  stockName: string = '';
+  stockQuantity: number = 0;
+  stockDate: Date = new Date();
+  stockSupplier: number = 0;
 
   getStockItems() {
     this.stockService.getStockItems().then(data => {
@@ -46,29 +44,23 @@ export class StockaddComponent {
   }
 
   postItem() {
-    console.log(this.productName);
-    console.log(this.productQuantity);
-    console.log(this.productDate);
-    console.log(this.productSupplier);
-    console.log(this.productIngredient);
-    console.log(this.productIsFood);
+    console.log(this.stockName);
+    console.log(this.stockQuantity);
+    console.log(this.stockDate);
+    console.log(this.stockSupplier);
 
     // Access the service and send a stockitem
     this.stockService.postStockItem(
-      this.productName,
-      this.productQuantity,
-      this.productDate,
-      this.productSupplier,
-      this.productIngredient,
-      this.productIsFood
+      this.stockName,
+      this.stockQuantity,
+      this.stockDate,
+      this.stockSupplier
     ).then(() => {
       // Clear the fields
-      this.productName = '';
-      this.productQuantity = 0;
-      this.productDate = new Date();
-      this.productSupplier = 0;
-      this.productIngredient = 0;
-      this.productIsFood = 0;
+      this.stockName = '';
+      this.stockQuantity = 0;
+      this.stockDate = new Date();
+      this.stockSupplier = 0;
 
       // Refresh the grid
       this.getStockItems();

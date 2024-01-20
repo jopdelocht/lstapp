@@ -62,11 +62,11 @@ export class ProductsComponent {
       filter: true,
       headerName: 'Ingrediënten'
     },
-    {
-      field: "allergen",
-      filter: true,
-      headerName: 'Allergenen'
-    },
+    // {
+    //   field: "allergen",
+    //   filter: true,
+    //   headerName: 'Allergenen'
+    // },
     {
       field: "type",
       filter: true,
