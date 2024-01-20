@@ -17,14 +17,12 @@ export class StockService {
 
 
   //creation of a async await method for the postStockItem
-  async postStockItem(productName: string, productQuantity: number, productDate: Date, productSupplier: number, productIngredient: number, productIsFood: number) {
+  async postStockItem(stockName: string, stockQuantity: number, stockDate: Date, stockSupplier: number) {
     const item = {
-      name: productName,
-      quantity: productQuantity,
-      expirationdate: productDate,
-      supplier_id: productSupplier,
-      ingredient_id: productIngredient,
-      isfood: productIsFood
+      name: stockName,
+      quantity: stockQuantity,
+      expirationdate: stockDate,
+      supplier_id: stockSupplier
     };
     const result = await fetch(this.stockitemsURL, {
       method: 'POST',
@@ -34,4 +32,6 @@ export class StockService {
     return result.json();
   };
 }
+
+
 
