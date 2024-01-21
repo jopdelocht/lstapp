@@ -1,1 +1,12 @@
-<p>productsadd works!</p>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Recipient's username" [(ngModel)]="productName"
+        aria-label="Recipient's username" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+        (click)="postSelectedRows()">Post</button>
+</div>
+
+
+<!-- AG Grid version of the table -->
+<ag-grid-angular class="ag-theme-quartz mt-2" style="height:85vh;" [rowData]="rowData" [columnDefs]="colDefs"
+    [pagination]="true" [paginationAutoPageSize]="true" rowSelection='multiple' (gridReady)="onGridReady($event)">
+</ag-grid-angular>

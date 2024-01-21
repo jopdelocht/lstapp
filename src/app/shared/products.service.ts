@@ -14,4 +14,5 @@ export class ProductsService {
   async getProducts() {
     return (await fetch(this.productsURL)).json()
   }
+
 }
