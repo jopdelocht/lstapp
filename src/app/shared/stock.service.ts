@@ -17,9 +17,9 @@ export class StockService {
 
 
   //creation of a async await method for the postStockItem
-  async postStockItem(stockName: string, stockQuantity: number, stockDate: Date, stockSupplier: number) {
+  async postStockItem(stockName: number, stockQuantity: number, stockDate: Date, stockSupplier: number) {
     const item = {
-      name: stockName,
+      product_id: stockName,
       quantity: stockQuantity,
       expirationdate: stockDate,
       supplier_id: stockSupplier

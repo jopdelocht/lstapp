@@ -9,7 +9,7 @@
                 <label for="stockName">Stockitem:</label>
                 <select class="form-control" [(ngModel)]="myProduct">
                     @for (product of products; track product.id) {
-                    <option value [value]="product.productname">{{ product.productname }}</option>
+                    <option value [value]="product.id">{{ product.productname }}</option>
                     }
                 </select>
             </div>
@@ -28,7 +28,7 @@
                 <label for="stockSupplier">Leverancier:</label>
                 <select class="form-control" [(ngModel)]="mySupplier">
                     @for (supplier of suppliers; track supplier.id) {
-                    <option value [value]="supplier.name">{{ supplier.name }}</option>
+                    <option value [value]="supplier.id">{{ supplier.name }}</option>
                     }
                 </select>
             </div>

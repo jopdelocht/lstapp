@@ -77,27 +77,28 @@ export class StockaddComponent {
   }
 
   postItem() {
-    console.log(this.myProduct.id);
+    console.log(this.myProduct);
     console.log(this.myQuantity);
     console.log(this.myDate);
     console.log(this.mySupplier);
 
-    // // Access the service and send a stockitem
-    // this.stockService.postStockItem(
-    //   this.myProduct,
-    //   this.stockQuantity,
-    //   this.stockDate,
-    //   this.stockSupplier
-    // ).then(() => {
-    //   // Clear the fields
-    //   this.stockName = '';
-    //   this.stockQuantity = 0;
-    //   this.stockDate = new Date();
-    //   this.stockSupplier = 0;
+    // Access the service and send a stockitem
+    this.stockService.postStockItem(
+      this.myProduct,
+      this.myQuantity,
+      this.myDate,
+      this.mySupplier
+    ).then(() => {
+      // Clear the fields
+      this.myProduct = '';
+      this.myQuantity = 0;
+      this.myDate = new Date();
+      this.mySupplier = '';
 
-    //   // Refresh the grid
-    //   this.getStockItems();
-    // });
+      //refresh grid
+      this.getStockItems();
+    });
+
   }
 
   //data loaded when page is initialized
