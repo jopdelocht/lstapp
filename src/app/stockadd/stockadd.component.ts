@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { StockService } from '../shared/stock.service';
 // import grid module
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
+// import for ngModel
 import { FormsModule } from '@angular/forms';
+// import services
+import { ProductsService } from '../shared/products.service';
+import { SuppliersService } from '../shared/suppliers.service';
+import { StockService } from '../shared/stock.service';
 
 @Component({
   selector: 'app-stockadd',
@@ -16,16 +20,44 @@ import { FormsModule } from '@angular/forms';
 })
 export class StockaddComponent {
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService, private productsService: ProductsService, private suppliersService: SuppliersService) { }
 
+  //product selected in form ngModel
+  myProduct: any;
+  //array for products
+  products: any[] = [];
+  product: any;
+  // supplier selected in form ngModel
+  mySupplier: any;
+  //array for suppliers
+  suppliers: any[] = [];
+  supplier: any;
+  //empty array for stockitems
   stockItems: any[] = [];
+  stockitem: any;
+  //api stockitems-url
   apiUrl = this.stockService.stockitemsURL;
   // assign rowData for module
   rowData = this.stockItems;
-  stockName: string = '';
-  stockQuantity: number = 0;
-  stockDate: Date = new Date();
-  stockSupplier: number = 0;
+  // declare attributes for sending POST-data
+  myQuantity: number = 0;
+  myDate: Date = new Date();
+
+
+
+  getProducts() {
+    this.productsService.getProducts().then(data => {
+      this.products = data;
+      console.log(this.products);
+    }).catch(error => console.log(error));
+  }
+
+  getSuppliers() {
+    this.suppliersService.getSuppliers().then(data => {
+      this.suppliers = data;
+      console.log(this.suppliers);
+    }).catch(error => console.log(error));
+  }
 
   getStockItems() {
     this.stockService.getStockItems().then(data => {
@@ -33,6 +65,7 @@ export class StockaddComponent {
       this.rowData = this.stockItems
     }).catch(error => console.log(error));
   }
+
 
   // This function checks if the incoming data from isfood is 1 or 0 --> returns a specific icon
   isFoodRenderer(params: any) {
@@ -44,33 +77,38 @@ export class StockaddComponent {
   }
 
   postItem() {
-    console.log(this.stockName);
-    console.log(this.stockQuantity);
-    console.log(this.stockDate);
-    console.log(this.stockSupplier);
+    console.log(this.myProduct);
+    console.log(this.myQuantity);
+    console.log(this.myDate);
+    console.log(this.mySupplier);
 
     // Access the service and send a stockitem
     this.stockService.postStockItem(
-      this.stockName,
-      this.stockQuantity,
-      this.stockDate,
-      this.stockSupplier
+      this.myProduct,
+      this.myQuantity,
+      this.myDate,
+      this.mySupplier
     ).then(() => {
       // Clear the fields
-      this.stockName = '';
-      this.stockQuantity = 0;
-      this.stockDate = new Date();
-      this.stockSupplier = 0;
+      this.myProduct = '';
+      this.myQuantity = 0;
+      this.myDate = new Date();
+      this.mySupplier = '';
 
-      // Refresh the grid
+      //refresh grid
       this.getStockItems();
     });
+
   }
 
+  //data loaded when page is initialized
   ngOnInit() {
+    this.getProducts();
+    this.getSuppliers();
     this.getStockItems();
   }
 
+  //data showing in the overview grid
   colDefs: ColDef[] = [
     {
       field: "product",
@@ -104,11 +142,3 @@ export class StockaddComponent {
     }
   ]
 }
-
-//   {
-//   field: "isfood",
-//   filter: true,
-//   headerName: 'Voeding',
-//   cellRenderer: this.isFoodRenderer.bind(this),
-//   cellClass: 'center',
-// }

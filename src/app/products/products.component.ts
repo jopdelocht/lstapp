@@ -50,7 +50,7 @@ export class ProductsComponent {
   // Define table columns
   colDefs: ColDef[] = [
     {
-      field: "product",
+      field: "productname",
       filter: true,
       headerName: 'Beschrijving',
       minWidth: 280,
