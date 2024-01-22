@@ -72,17 +72,8 @@ export class IngredientaddComponent {
       .then(response => console.log(response))
       .catch(err => console.error(err));
 
+      // Clear all the input fields
+      this.ingredientName = '';
+      this.allergenIDs = '';
   }
 }
-// async postIngredient(ingredientName: string, allergenIDs: string) {
-//   const item = {
-//     name: ingredientName,
-//     allergens: allergenIDs.toString()
-//   };
-//   const result = await fetch(this.ingredientsURL, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
-//     body: JSON.stringify(item)
-//   })
-//   return result.json();
-// };

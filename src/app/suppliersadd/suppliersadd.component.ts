@@ -39,6 +39,9 @@
           // save suppliers as rowData
           this.rowData = this.suppliers
         })
+
+        // Clear the input field
+        this.supplierName = '';
   }
 
     ngOnInit() {
