@@ -5,35 +5,45 @@
             <div id="header" class="text-center m-2">
                 <h3>Stock aanvullen</h3>
             </div>
-            <div class="form-group">
-                <label for="stockName">Stockitem:</label>
-                <select class="form-control" [(ngModel)]="myProduct">
+
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockName">Stockitem</label></span>
+                <select type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                    class="form-control" [(ngModel)]="myProduct">
                     @for (product of products; track product.id) {
                     <option value [value]="product.id">{{ product.productname }}</option>
                     }
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="stockQuantity">Hoeveelheid:(g/ml/st)</label>
-                <input type="text" class="form-control" [(ngModel)]="myQuantity" placeholder="Hoeveelheid">
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockQuantity">Hoeveelheid<br>(g/ml/st)</label></span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" [(ngModel)]="myQuantity" placeholder="Hoeveelheid">
             </div>
 
-            <div class="form-group">
-                <label for="stockDate">Vervaldatum:</label>
-                <input type="date" class="form-control" [(ngModel)]="myDate" placeholder="Vervaldatum">
+
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockDate">Vervaldatum</label></span>
+                <input type="date" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" [(ngModel)]="myDate" placeholder="Vervaldatum">
             </div>
 
-            <div class="form-group">
-                <label for="stockSupplier">Leverancier:</label>
-                <select class="form-control" [(ngModel)]="mySupplier">
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockSupplier">Leverancier</label></span>
+                <select class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" [(ngModel)]="mySupplier">
                     @for (supplier of suppliers; track supplier.id) {
                     <option value [value]="supplier.id">{{ supplier.name }}</option>
                     }
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary" (click)="postItem()">Toevoegen</button>
+            <button type="submit" class="btn btn-primary w-100" (click)="postItem()">Toevoegen</button>
         </div>
         <div class="col-md-7">
             <!-- AG Grid version of the table -->

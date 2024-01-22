@@ -1,28 +1,9 @@
-.allergens{
-    display: grid;
+ button.btn.btn-primary.mt-2.w-100 {
+    background-color: #FEEBF1;
+    color: black;
+    border: none;
 }
 
-input[type="checkbox"] {
-    vertical-align: middle;
-    display: inline-block;
-}
-
-label {
-    display: inline-block;
-    vertical-align: middle;
-    /* margin-left: 0.3rem !important; */
-}
-
-input.form-control.m-1 {
-    margin-left: 5rem !important;
-    width: 50% !important;
-}
-
-.input-group{
-    width: 50%;
-    margin-left: 6rem
-}
-
-.checkboxlabel{
-    margin: 0.3rem !important;
+h3 {
+    color: #B16F6E;
 }

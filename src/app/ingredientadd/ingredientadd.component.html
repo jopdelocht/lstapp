@@ -1,12 +1,20 @@
-<div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" [(ngModel)]="ingredientName"
-        aria-label="Recipient's username" aria-describedby="button-addon2">
-    <button class="btn btn-outline-secondary" type="button" id="button-addon2"
-        (click)="postSelectedRows()">Post</button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5 leftcontainer mt-2">
+            <!-- <button type="button" class="btn btn-primary" (click)="postTest()">Post test</button> -->
+            <div id="header" class="text-center m-2">
+                <h3>Ingrediënten toevoegen</h3>
+            </div>
+            <input type="text" class="form-control mt-3" [(ngModel)]="ingredientName" placeholder="Naam ingrediënt">
+            <!-- <input class="form-control mb-1  " type="text" [(ngModel)]="myContent" placeholder="New present"> -->
+            <button type="submit" class="btn btn-primary mt-2 w-100" (click)="postSelectedRows()">Toevoegen</button>
+        </div>
+
+        <div class="col-md-7">
+            <!-- AG Grid version of the table -->
+            <ag-grid-angular class="ag-theme-quartz m-2" style="height:75vh;" [rowData]="rowData" [columnDefs]="colDefs"
+                rowSelection='multiple' (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
+        </div>
+    </div>
 </div>
-
-
-<!-- AG Grid version of the table -->
-<ag-grid-angular class="ag-theme-quartz mt-2" style="height:75vh;" [rowData]="rowData" [columnDefs]="colDefs"
-    rowSelection='multiple' (gridReady)="onGridReady($event)">
-</ag-grid-angular>
