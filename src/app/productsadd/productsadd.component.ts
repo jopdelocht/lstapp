@@ -25,6 +25,8 @@ export class ProductsaddComponent {
   ingredientsArray: any[] = [];
   ingredientIDs: string = '';
   productName: string = '';
+  isFood: number = 0;
+  typeId: number = 1;
 
 
   fetchIngredients() {
@@ -45,6 +47,7 @@ export class ProductsaddComponent {
 
   // assign rowData for module
   rowData = this.ingredientsArray;
+
   // Define table columns
   colDefs: ColDef[] = [
     {
@@ -62,7 +65,7 @@ export class ProductsaddComponent {
     this.columnApi = params.columnApi;
   }
 
-  postSelectedRows() {
+  postNewProduct() {
     let selectedRows = this.gridApi.getSelectedRows();
     console.log(selectedRows);
     let ingredientIDs = selectedRows.map((x: { id: any; }) => x.id);
@@ -75,8 +78,8 @@ export class ProductsaddComponent {
       body: JSON.stringify({
         "name": this.productName,
         "ingredients": this.ingredientIDs,
-        "isfood": "1",
-        "type_id": "1"
+        "isfood": this.isFood,
+        "type_id": this.typeId
       })
     };
 
@@ -84,5 +87,11 @@ export class ProductsaddComponent {
       .then(response => response.json())
       .then(response => console.log(response))
       .catch(err => console.error(err));
+
+      // clear the input fields
+      this.productName = ""
+      this.gridApi.deselectAll();
+      this.isFood = 0;
+      this.typeId = 1;
   }
 }
