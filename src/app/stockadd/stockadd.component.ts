@@ -45,25 +45,19 @@ export class StockaddComponent {
 
 
 
-  getProducts() {
-    this.productsService.getProducts().then(data => {
-      this.products = data;
-      console.log(this.products);
-    }).catch(error => console.log(error));
+  async fetchProducts() {
+    this.products = await this.productsService.getProducts();
   }
 
-  getSuppliers() {
-    this.suppliersService.getSuppliers().then(data => {
-      this.suppliers = data;
-      console.log(this.suppliers);
-    }).catch(error => console.log(error));
+
+  async fetchSuppliers() {
+    this.suppliers = await this.suppliersService.getSuppliers();
   }
 
-  getStockItems() {
-    this.stockService.getStockItems().then(data => {
-      this.stockItems = data;
-      this.rowData = this.stockItems
-    }).catch(error => console.log(error));
+
+  async fetchStockItems() {
+    this.stockItems = await this.stockService.getStockItems();
+    this.rowData = this.stockItems
   }
 
 
@@ -76,36 +70,28 @@ export class StockaddComponent {
     }
   }
 
-  postItem() {
-    console.log(this.myProduct);
-    console.log(this.myQuantity);
-    console.log(this.myDate);
-    console.log(this.mySupplier);
-
+  async postStockItem() {
     // Access the service and send a stockitem
-    this.stockService.postStockItem(
+    await this.stockService.postStockItem(
       this.myProduct,
       this.myQuantity,
       this.myDate,
-      this.mySupplier
-    ).then(() => {
-      // Clear the fields
-      this.myProduct = '';
-      this.myQuantity = 0;
-      this.myDate = new Date();
-      this.mySupplier = '';
+      this.mySupplier)
+    // Clear the fields
+    this.myProduct = '';
+    this.myQuantity = 0;
+    this.myDate = new Date();
+    this.mySupplier = '';
+    //refresh grid
+    this.fetchStockItems();
+  };
 
-      //refresh grid
-      this.getStockItems();
-    });
-
-  }
 
   //data loaded when page is initialized
   ngOnInit() {
-    this.getProducts();
-    this.getSuppliers();
-    this.getStockItems();
+    this.fetchProducts();
+    this.fetchSuppliers();
+    this.fetchStockItems();
   }
 
   //data showing in the overview grid

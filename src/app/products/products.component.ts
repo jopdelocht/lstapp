@@ -22,14 +22,10 @@ export class ProductsComponent {
   productsURL = this.productsService.productsURL;
   productArray: any[] = [];
 
-  fetchProducts() {
-    fetch(this.productsURL)
-      .then(response => response.json())
-      .then(json => {
-        this.productArray = json
-        // save products as rowData
-        this.rowData = this.productArray
-      }).catch(error => console.log(error));
+  async fetchProducts() {
+    this.productArray = await this.productsService.getProducts();
+    // save products as rowData
+    this.rowData = this.productArray
   }
 
   ngOnInit() {

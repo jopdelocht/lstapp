@@ -29,16 +29,10 @@ export class ProductsaddComponent {
   typeId: number = 1;
 
 
-  fetchIngredients() {
-    fetch(this.ingredientsURL)
-      .then(response => response.json())
-      .then(json => {
-        this.ingredientsArray = json;
-        // save products as rowData
-        this.rowData = this.ingredientsArray;
-
-      }).catch(error => console.log(error));
-
+  async fetchIngredients() {
+    this.ingredientsArray = await this.ingredientsService.getIngredients();
+    // save products as rowData
+    this.rowData = this.ingredientsArray;
   }
 
   ngOnInit() {
@@ -88,10 +82,10 @@ export class ProductsaddComponent {
       .then(response => console.log(response))
       .catch(err => console.error(err));
 
-      // clear the input fields
-      this.productName = ""
-      this.gridApi.deselectAll();
-      this.isFood = 0;
-      this.typeId = 1;
+    // clear the input fields
+    this.productName = ""
+    this.gridApi.deselectAll();
+    this.isFood = 0;
+    this.typeId = 1;
   }
 }
