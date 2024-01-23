@@ -6,6 +6,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { FormsModule } from '@angular/forms';
 import { SuppliersService } from '../shared/suppliers.service';
+// import toastr
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-suppliersadd',
@@ -16,7 +18,7 @@ import { SuppliersService } from '../shared/suppliers.service';
 })
 export class SuppliersaddComponent {
 
-  constructor(private suppliersService: SuppliersService) { }
+  constructor(private suppliersService: SuppliersService, private toastr: ToastrService) { }
 
   url: string = 'http://127.0.0.1:8000/api/suppliers';
 
@@ -34,6 +36,12 @@ export class SuppliersaddComponent {
   async postSupplier() {
     await this.suppliersService.postSupplier(this.supplierName);
     this.fetchSuppliers();
+    // Show success message
+    this.toastr.success('Leverancier toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+    // refresh the page by redirecting to its own url
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000);
   }
 
   ngOnInit() {

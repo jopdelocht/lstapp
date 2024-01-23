@@ -7,6 +7,8 @@ import { IngredientsService } from '../shared/ingredients.service';
 import { ProductsService } from '../shared/products.service';
 import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
 import { FormsModule } from '@angular/forms';
+// import toastr
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-productsadd',
@@ -17,7 +19,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProductsaddComponent {
 
-  constructor(private productsService: ProductsService, private ingredientsService: IngredientsService) { }
+  constructor(private productsService: ProductsService, private ingredientsService: IngredientsService, private toastr: ToastrService) { }
 
   gridApi: any;
   columnApi: any;
@@ -87,5 +89,13 @@ export class ProductsaddComponent {
     this.gridApi.deselectAll();
     this.isFood = 0;
     this.typeId = 1;
+
+    // show success message
+    this.toastr.success('Product toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+    // refresh the page by redirecting to its own url
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000);
+
   }
 }

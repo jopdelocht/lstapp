@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../shared/products.service';
 import { SuppliersService } from '../shared/suppliers.service';
 import { StockService } from '../shared/stock.service';
+// import toastr
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-stockadd',
@@ -20,7 +22,7 @@ import { StockService } from '../shared/stock.service';
 })
 export class StockaddComponent {
 
-  constructor(private stockService: StockService, private productsService: ProductsService, private suppliersService: SuppliersService) { }
+  constructor(private stockService: StockService, private productsService: ProductsService, private suppliersService: SuppliersService, private toastr: ToastrService) { }
 
   //product selected in form ngModel
   myProduct: any;
@@ -84,6 +86,13 @@ export class StockaddComponent {
     this.mySupplier = '';
     //refresh grid
     this.fetchStockItems();
+    //show success message
+    this.toastr.success('Stockitem toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+    // refresh the page by redirecting to its own url
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000);
+
   };
 
 
