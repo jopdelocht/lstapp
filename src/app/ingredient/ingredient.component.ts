@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 // import grid module
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
+import { IngredientsService } from '../shared/ingredients.service';
 
 @Component({
   selector: 'app-ingredient',
@@ -18,15 +19,14 @@ export class IngredientComponent {
 
   ingredients: any[] = [];
 
-  fetchMyData() {
-    fetch(this.url)
-      .then(response => response.json())
-      .then(json => {
-        this.ingredients = json
-        // save ingredients as rowData
-        this.rowData = this.ingredients
-      })
+  constructor(private ingredientsService: IngredientsService) { }
+
+  async fetchMyData() {
+    this.ingredients = await this.ingredientsService.getIngredients();
+    // save ingredients as rowData
+    this.rowData = this.ingredients
   }
+
 
   ngOnInit() {
     this.fetchMyData();
