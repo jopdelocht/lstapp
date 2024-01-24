@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+
 // import grid module
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
@@ -15,9 +16,16 @@ import { IngredientsService } from '../shared/ingredients.service';
 })
 
 export class IngredientComponent {
-  url: string = 'http://127.0.0.1:8000/api/ingredients';
+  ingredientsUrl: string = 'http://127.0.0.1:8000/api/ingredients';
 
-  ingredients: any[] = [];
+  ingredients: [{}] = [{}];
+
+  rowData = this.ingredients;
+
+  colDefs: ColDef[] = [
+    { field: "Ingredient", filter: true, headerName:"Ingredient" },
+    { field: "Allergen", filter: true, headerName:"Allergenen" },
+  ]
 
   constructor(private ingredientsService: IngredientsService) { }
 
@@ -31,12 +39,4 @@ export class IngredientComponent {
   ngOnInit() {
     this.fetchMyData();
   }
-  // assign rowData for module
-  rowData = this.ingredients;
-  // Define table columns
-  colDefs: ColDef[] = [
-    { field: "id" },
-    { field: "ingredienten", filter: true },
-    { field: "allergenen", filter: true },
-  ]
 }
