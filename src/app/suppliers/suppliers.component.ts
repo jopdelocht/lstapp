@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 // import grid module
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
+import { SuppliersService } from '../shared/suppliers.service';
 
 @Component({
   selector: 'app-ingredient',
@@ -14,22 +15,20 @@ import { ColDef } from 'ag-grid-community';
 })
 
 export class SuppliersComponent {
-  url: string = 'http://127.0.0.1:8000/api/suppliers';
+
+  constructor(private suppliersService: SuppliersService) { }
 
   suppliers: any[] = [];
 
-  fetchMyData() {
-    fetch(this.url)
-      .then(response => response.json())
-      .then(json => {
-        this.suppliers = json
-        // save suppliers as rowData
-        this.rowData = this.suppliers
-      })
+  async fetchSuppliers() {
+    this.suppliers = await this.suppliersService.getSuppliers();
+    // save suppliers as rowData
+    this.rowData = this.suppliers
   }
 
+
   ngOnInit() {
-    this.fetchMyData();
+    this.fetchSuppliers();
   }
   // assign rowData for module
   rowData = this.suppliers;
