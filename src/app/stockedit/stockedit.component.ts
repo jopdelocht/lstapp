@@ -7,6 +7,7 @@ import { GramsToKilosPipe } from '../grams-to-kilos.pipe';
 import { AgGridModule } from 'ag-grid-angular';
 import { StockService } from '../shared/stock.service';
 import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-stockedit',
@@ -21,7 +22,7 @@ export class StockeditComponent {
   gridApi: any;
   columnApi: any;
 
-  constructor(private stockService: StockService) { }
+  constructor(private stockService: StockService, private toastr: ToastrService) { }
 
   fetchMyData() {
     fetch(this.stockitemsURL)
@@ -90,5 +91,27 @@ export class StockeditComponent {
     let selectedRows = this.gridApi.getSelectedRows();
     console.log(selectedRows);
   }
-
+  // DELETE selected rows
+  deleteSelectedRows() {
+    // get array of the selected rows
+    this.getSelectedRows();
+    // select id's of the selected rows
+    let selectedRows = this.gridApi.getSelectedRows();
+    // get id's of the selectedrows and push it into an array
+    let idArray = selectedRows.map((x: { id: any; }) => x.id);
+    // console.log(idArray);
+    idArray.forEach((id: any) => {
+      // console.log(id)
+      // call the deleteStockItems method
+      this.stockService.deleteStockItems(id);});
+    // show toast message to the user that the item(s) have been deleted
+    if (idArray.length > 1) {
+      this.toastr.success('Producten verwijderd', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+    }else{this.toastr.success('Product verwijderd', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+  }
+    // refresh the page by redirecting to its own url
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000);
+  }
 }
