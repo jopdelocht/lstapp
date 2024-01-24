@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { OrdersComponent } from './orders/orders.component';
 import { StockComponent } from './stock/stock.component';
 import { StockaddComponent } from './stockadd/stockadd.component';
 import { StockeditComponent } from './stockedit/stockedit.component';
@@ -88,5 +89,9 @@ export const routes: Routes = [
     {
         path: 'suppliersedit',
         component: SupplierseditComponent
+    },
+    {
+        path: 'orders',
+        component: OrdersComponent
     }
 ];
