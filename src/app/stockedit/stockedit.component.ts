@@ -8,11 +8,15 @@ import { AgGridModule } from 'ag-grid-angular';
 import { StockService } from '../shared/stock.service';
 import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
 import { ToastrService } from 'ngx-toastr';
+// for edit
+import { FormsModule } from '@angular/forms';
+import { ProductsService } from '../shared/products.service';
+import { SuppliersService } from '../shared/suppliers.service';
 
 @Component({
   selector: 'app-stockedit',
   standalone: true,
-  imports: [GramsToKilosPipe, AgGridModule, CommonModule, RouterOutlet],
+  imports: [GramsToKilosPipe, AgGridModule, CommonModule, RouterOutlet, FormsModule],
   templateUrl: './stockedit.component.html',
   styleUrl: './stockedit.component.css'
 })
@@ -21,8 +25,16 @@ export class StockeditComponent {
   stockItems: any[] = [];
   gridApi: any;
   columnApi: any;
+  editMode: boolean = false;
+myProduct: any;
+products: any;
+myQuantity: any;
+myDate: any;
+mySupplier: any;
+suppliers: any;
+currentSupplierId: any;
 
-  constructor(private stockService: StockService, private toastr: ToastrService) { }
+  constructor(private stockService: StockService, private toastr: ToastrService, private productsService: ProductsService, private suppliersService: SuppliersService) { }
 
   fetchMyData() {
     fetch(this.stockitemsURL)
@@ -33,9 +45,24 @@ export class StockeditComponent {
         this.rowData = this.stockItems
       }).catch(error => console.log(error));
   }
+  getProducts() {
+    this.productsService.getProducts().then(data => {
+      this.products = data;
+      console.log(this.products);
+    }).catch(error => console.log(error));
+  }
+
+  getSuppliers() {
+    this.suppliersService.getSuppliers().then(data => {
+      this.suppliers = data;
+      console.log(this.suppliers);
+    }).catch(error => console.log(error));
+  }
 
   ngOnInit() {
     this.fetchMyData();
+    this.getProducts();
+    this.getSuppliers();
   }
 
   // assign rowData for module
@@ -113,5 +140,22 @@ export class StockeditComponent {
     setTimeout(() => {
       window.location.reload()
     }, 2000);
+  }
+  editCurrentRow() {
+    this.getSelectedRows();
+    if (this.gridApi.getSelectedRows().length > 1) {
+      this.toastr.error('Selecteer slechts een item', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+    }
+    else { this.editMode = true; }
+    // input the current selected row's data into the input fields
+    let selectedRows = this.gridApi.getSelectedRows();
+    // compare product name to it's id and input the right id
+    this.myProduct = selectedRows[0].product;
+    // set the quantity
+    this.myQuantity = selectedRows[0].quantity;
+    // set the expiration date
+    this.myDate = selectedRows[0].expirationdate;
+    // compare supplier content to it's id and input the right id
+    this.mySupplier = selectedRows[0].supplier;
   }
 }
