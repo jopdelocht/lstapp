@@ -14,6 +14,4 @@ export class IngredientsService {
   async getIngredients() {
     return (await fetch(this.ingredientsURL)).json();
   }
-
-  //creation of a async await method for the postIngredient
 }

@@ -108,6 +108,9 @@ currentSupplierId: any;
   deleteSelectedRows() {
     // get array of the selected rows
     this.getSelectedRows();
+    if (this.gridApi.getSelectedRows().length == 0) {
+      this.toastr.error('Geen producten geselecteerd', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+    } else {
     // select id's of the selected rows
     let selectedRows = this.gridApi.getSelectedRows();
     // get id's of the selectedrows and push it into an array
@@ -127,7 +130,8 @@ currentSupplierId: any;
     // refresh the page by redirecting to its own url
     setTimeout(() => {
       window.location.reload()
-    }, 2000);
+    }, 2000); 
+  }
   }
   editCurrentRow() {
     // save ID of the selected row
