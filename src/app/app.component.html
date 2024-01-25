@@ -65,19 +65,28 @@
           </ul>
         </div>
 
-        <div class="dropdown m-1">
+        <div *ngIf="!isLoggedIn" class="dropdown m-1">
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             <i class="m-1 fas fa-user"></i>
             Account
           </button>
           <ul class="dropdown-menu">
-            <li *ngIf="!isLoggedIn" class="nav-item">
+            <li class="nav-item">
               <a class="dropdown-item" href="/login">Login</a>
             </li>
-            <li *ngIf="!isLoggedIn" class="nav-item">
+            <li class="nav-item">
               <a class="dropdown-item" href="/register">Registreren</a>
             </li>
+          </ul>
+        </div>
+        <div *ngIf="isLoggedIn" class="dropdown m-1">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="m-1 fas fa-user"></i>
+            <span *ngIf="isLoggedIn">{{username}}</span>
+          </button>
+          <ul class="dropdown-menu">
             <li *ngIf="isLoggedIn" class="nav-item">
               <button class="dropdown-item" (click)="logout()">Logout</button>
             </li>
