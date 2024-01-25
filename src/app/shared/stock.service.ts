@@ -40,8 +40,21 @@ export class StockService {
       body: 'false'
     };
     const result = await fetch('http://127.0.0.1:8000/api/stockitems/' + id, options);
+   }
+  //  creation of a async await method for the updateStockItem
+   async updateStockItem(myId: any, myProduct: number, myQuantity: number, myDate: Date, mySupplier: number) {
+    const item = {
+      product_id: myProduct,
+      quantity: myQuantity,
+      expirationdate: myDate,
+      supplier_id: mySupplier
+    };
+    const result = await fetch('http://127.0.0.1:8000/api/stockitems/'+myId, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      body: JSON.stringify(item)
+    })
+    return result.json();
   }
 }
-
-
 

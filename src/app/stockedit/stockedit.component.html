@@ -1,6 +1,75 @@
-<button type="submit" class="btn btn-primary m-2" (click)="getSelectedRows()">Fix data</button>
-<button type="submit" class="btn btn-primary m-2" (click)="deleteSelectedRows()">VERWIJDER</button>
-<!-- AG Grid version of the table -->
-<ag-grid-angular class="ag-theme-quartz mt-2" style="height:85vh;" [rowData]="rowData" [columnDefs]="colDefs"
-    [pagination]="true" [paginationAutoPageSize]="true" rowSelection='multiple' (gridReady)="onGridReady($event)">
-</ag-grid-angular>
+<!-- only show when edit is not active -->
+<div class="container-fluid" *ngIf="!editMode">
+    <button type="submit" class="btn btn-primary m-2" (click)="getSelectedRows()">Fix data</button>
+    <button type="submit" class="btn btn-primary m-2" (click)="deleteSelectedRows()">VERWIJDER</button>
+    <button type="submit" class="btn btn-primary m-2" (click)="editCurrentRow()">Geselecteerde aanpassen</button>
+    <!-- AG Grid version of the table -->
+    <ag-grid-angular 
+    class="ag-theme-quartz mt-2" 
+    style="height:75vh;" 
+    [rowData]="rowData" 
+    [columnDefs]="colDefs"
+        [pagination]="true" 
+        [paginationAutoPageSize]="true" 
+        rowSelection='multiple' 
+        (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+</div>
+<!-- only show when edit is active -->
+<div class="container-fluid" *ngIf="editMode">
+    <div class="row">
+        <div class ="col-md-4 leftcontainer mt-2">
+            <div id="header" class="text-center m-2">
+                <h3>Stock aanpassen</h3>
+            </div>
+
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockName">Stockitem</label></span>
+                <select type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                    class="form-control" [(ngModel)]="myProduct">
+                    @for (product of products; track product.id) {
+                    <option value [value]="product.id" [selected]="product.id === myProduct">{{ product.productname }}</option>
+                    }
+                </select>
+            </div>
+
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockQuantity">Hoeveelheid<br>(g/ml/st)</label></span>
+                <input type="text" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" [(ngModel)]="myQuantity" placeholder="Hoeveelheid">
+            </div>
+
+
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockDate">Vervaldatum</label></span>
+                <input type="date" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" [(ngModel)]="myDate" placeholder="Vervaldatum">
+            </div>
+
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockSupplier">Leverancier</label></span>
+                <select class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" [(ngModel)]="mySupplier">
+                    @for (supplier of suppliers; track supplier.id) {
+                    <option value [value]="supplier.id">{{ supplier.name }}</option>
+                    }
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary m-2" (click)="saveChanges()">Aanpassing bevestigen</button>
+        </div>
+        <div class="col-md-8">
+            <!-- AG Grid version of the table -->
+            <ag-grid-angular class="ag-theme-quartz m-2" style="height:80vh;"
+            [rowData]="rowData" 
+            [columnDefs]="colDefs"
+            [pagination]="true" 
+            [paginationAutoPageSize]="true">
+            </ag-grid-angular>
+        </div>
+    </div>
+</div>
