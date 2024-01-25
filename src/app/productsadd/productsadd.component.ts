@@ -47,11 +47,16 @@ export class ProductsaddComponent {
   // Define table columns
   colDefs: ColDef[] = [
     {
-      field: "name",
+      field: "Ingredient",
       filter: true,
       headerName: 'Ingrediënten',
       sort: 'asc',
       checkboxSelection: true
+    },
+    {
+      field: "Allergen",
+      filter: true,
+      headerName: 'Allergenen',
     }
   ]
 
@@ -62,28 +67,17 @@ export class ProductsaddComponent {
   }
 
   postNewProduct() {
+    // don't post if name and radiobuttons aren't selected
+    if (!this.productName || !this.isFood || !this.typeId) {
+      this.toastr.error('Vul alle velden in', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+    }else{
     let selectedRows = this.gridApi.getSelectedRows();
     console.log(selectedRows);
-    let ingredientIDs = selectedRows.map((x: { id: any; }) => x.id);
+    let ingredientIDs = selectedRows.map((x: { Ingredient_id: any; }) => x.Ingredient_id);
     console.log(ingredientIDs);
     this.ingredientIDs = ingredientIDs.join(',');
-
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
-      body: JSON.stringify({
-        "name": this.productName,
-        "ingredients": this.ingredientIDs,
-        "isfood": this.isFood,
-        "type_id": this.typeId
-      })
-    };
-
-    fetch('http://127.0.0.1:8000/api/products', options)
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
-
+    // call method from service
+    this.productsService.postProduct(this.productName, this.ingredientIDs, this.isFood, this.typeId);
     // clear the input fields
     this.productName = ""
     this.gridApi.deselectAll();
@@ -96,6 +90,6 @@ export class ProductsaddComponent {
     setTimeout(() => {
       window.location.reload()
     }, 2000);
-
+    }
   }
 }
