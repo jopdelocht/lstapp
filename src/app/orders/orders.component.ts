@@ -6,9 +6,12 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 //import services
 import { OrdersService } from '../shared/orders.service';
+import { RecipeProductService } from '../shared/recipeproduct.service';
 import { IngredientsService } from '../shared/ingredients.service';
+import { ClientsService } from '../shared/clients.service';
 //import formsmodule
 import { FormsModule } from '@angular/forms';
+import { ProductsService } from '../shared/products.service';
 
 @Component({
   selector: 'app-orders',
@@ -21,10 +24,13 @@ export class OrdersComponent {
   // variable needed for callback filter method
   myRecipe: any;
 
-  constructor(private ordersService: OrdersService, private ingredientsService: IngredientsService) { }
+  constructor(
+    private ordersService: OrdersService,
+    private ingredientsService: IngredientsService,
+    private RecipeProductService: RecipeProductService,
+    private ClientsService: ClientsService) { }
 
   // defines recipeproduct url and empty array for storing recipeproducts
-  recipeproductURL = this.ordersService.recipe_productURL;
   recipeproducts: any[] = [];
   // array where i'm storing the filtered recipes
   filteredRecipes: any[] = [];
@@ -33,18 +39,36 @@ export class OrdersComponent {
   myQuantity: number = 0;
   // storing freshly calculated values in this array
   calculatedValues: any[] = []
+  calculatedValue: any = {};
   firstCalculatedValue: any;
   // array for storing ingredients
   ingredientsArray: [{}] = [{}];
+  // array for storing orders
+  orders: [{}] = [{}];
+  // array for storing clients
+  clients: any[] = [];
+  // variable for myClient
+  myClient: any;
+  // variables for storing the result of the ingredientnames and allergennames method
+  ingredientNames: any;
+  allergenNames: any;
 
 
-  async fetchRecipeProducts() {
-    this.recipeproducts = await this.ordersService.getRecipeProduct();
-    this.rowData = this.recipeproducts;
+  async fetchRecipeProduct() {
+    this.recipeproducts = await this.RecipeProductService.getRecipeProduct();
   }
 
   async fetchIngredients() {
     this.ingredientsArray = await this.ingredientsService.getIngredients();
+  }
+
+  async fetchOrders() {
+    this.orders = await this.ordersService.getOrders();
+    this.rowData = this.orders;
+  }
+
+  async fetchClients() {
+    this.clients = await this.ClientsService.getClients();
   }
 
   // to make sure there are no duplicate recipes
@@ -75,19 +99,21 @@ export class OrdersComponent {
         quantity: (product.quantity / product.basevalue) * this.myQuantity
       };
     });
-    console.log(this.calculatedValues);
+
     if (this.calculatedValues.length > 0) {
       this.firstCalculatedValue = this.calculatedValues[0];
+      this.calculatedValue = this.firstCalculatedValue; // update calculatedValue here
     } else {
       this.firstCalculatedValue = null;
+      this.calculatedValue = null; // update calculatedValue here
     }
     console.log(this.firstCalculatedValue);
-    console.log('Dit zijn alle ingrediënten: ' + this.getIngredientNames(this.calculatedValues, this.ingredientsArray));
-    console.log('Dit zijn alle allergenen: ' + this.findAllergens(this.calculatedValues, this.ingredientsArray));
-    return this.firstCalculatedValue;
+    this.ingredientNames = this.getIngredientNames(this.calculatedValues, this.ingredientsArray);
+    this.allergenNames = this.findAllergens(this.calculatedValues, this.ingredientsArray);
+    return this.firstCalculatedValue, this.ingredientNames, this.allergenNames;
   }
 
-  //This function searches the ingredients array for the names of the ingredients corresponding to it's ID's
+  // This function searches the ingredients array for the NAMES of the INGREDIENTS corresponding to it's ID's
   // The numbers it's using are coming from the freshly calculated array of recipeproducts
   getIngredientNames(array1: any[], array2: any[]): string {
     let allIngredientNames: string[] = [];
@@ -129,52 +155,92 @@ export class OrdersComponent {
     return [...new Set(allergens)].join(', ');
   }
 
+  async postOrder(calculatedItem: any) {
+    // Access the service and send a stockitem
+    await this.ordersService.postOrder(
+      this.myClient,
+      this.myQuantity,
+      calculatedItem.recipename,
+      calculatedItem.quantity,
+      calculatedItem.productname,
+      calculatedItem.measurement,
+      this.ingredientNames,
+      this.allergenNames)
 
+    console.log(this.myClient);
+    console.log(this.myQuantity);
+    console.log(calculatedItem.recipename);
+    console.log(calculatedItem.quantity);
+    console.log(calculatedItem.productname);
+    console.log(calculatedItem.measurement);
+    console.log(this.ingredientNames);
+    console.log(this.allergenNames);
 
+    //refresh grid
+    this.fetchOrders();
+  };
 
 
   ngOnInit() {
-    this.fetchRecipeProducts();
+    this.fetchRecipeProduct();
     this.getUniqueRecipes();
     this.fetchIngredients();
+    this.fetchOrders();
+    this.fetchClients();
   }
 
 
-
-
-
-
   // assign rowdata to grid
-  rowData = this.recipeproducts;
+  rowData = this.orders;
   // define table columns
   colDefs: ColDef[] = [
     {
-      field: "recipename",
+      field: "clientname",
       filter: true,
-      headerName: 'Receptnaam',
-      minWidth: 175,
+      headerName: 'Klantnaam',
+      maxWidth: 150,
       sortIndex: 0,
       sort: 'asc'
     },
     {
-      field: "basevalue",
+      field: "totalquantity",
       filter: true,
-      headerName: 'Basiswaarde'
+      headerName: 'Totaal (g)',
+      maxWidth: 120
     },
     {
-      field: "productname",
+      field: "recipe",
       filter: true,
-      headerName: 'Productnaam'
+      headerName: 'Recept',
+      maxWidth: 115
     },
     {
-      field: "quantity",
+      field: "productquantity",
       filter: true,
-      headerName: 'Producthoeveelheid'
+      headerName: 'Hoeveelheid',
+      maxWidth: 145
     },
     {
-      field: "measurement",
+      field: "type",
       filter: true,
-      headerName: 'Eenheid'
+      headerName: 'Eenheid',
+      maxWidth: 115
+    },
+    {
+      field: "product",
+      filter: true,
+      headerName: 'Product',
+      maxWidth: 150
+    },
+    {
+      field: "ingredient",
+      filter: true,
+      headerName: 'Ingrediënten'
+    },
+    {
+      field: "allergen",
+      filter: true,
+      headerName: 'Allergenen'
     }
   ];
 }
