@@ -1,1 +1,64 @@
-<p>productsedit works!</p>
+<!-- only show when edit is not active -->
+<div class="container-fluid" *ngIf="!editMode">
+    <button type="submit" class="btn btn-primary m-2" (click)="deleteSelectedRows()">VERWIJDER</button>
+    <button type="submit" class="btn btn-primary m-2" (click)="editCurrentRow()">Geselecteerde aanpassen</button>
+    <!-- AG Grid version of the table -->
+    <ag-grid-angular 
+    class="ag-theme-quartz mt-2" 
+    style="height:75vh;" 
+    [rowData]="rowData" 
+    [columnDefs]="colDefs"
+        [pagination]="true" 
+        [paginationAutoPageSize]="true" 
+        rowSelection='multiple' 
+        (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+</div>
+
+<!-- only show when edit is active -->
+<div class="container-fluid" *ngIf="editMode">
+    <div class="row">
+        <div class="col-md-5 leftcontainer mt-2">
+            <div id="header" class="text-center m-2">
+                <h3>Producten toevoegen</h3>
+            </div>
+
+            <!-- Name of product -->
+            <input type="text" class="form-control mt-3" [(ngModel)]="productName" placeholder="Naam product" required>
+
+            <hr>
+            <!-- Selecting if item is food -->
+            <div class="form-check m-1">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                    [(ngModel)]="isFood" value="1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Is voeding
+                </label>
+            </div>
+            <div class="form-check m-1">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                    [(ngModel)]="isFood" value="0">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Is geen voeding
+                </label>
+            </div>
+
+            <hr>
+            <!-- Units -->
+            <div class="form-check form-check-inline m-1">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="typeId" value="1">
+                <label class="form-check-label" for="inlineRadio1">g</label>
+              </div>
+              <div class="form-check form-check-inline m-1">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [(ngModel)]="typeId" value="2">
+                <label class="form-check-label" for="inlineRadio2">ml</label>
+              </div>
+              <div class="form-check form-check-inline m-1">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [(ngModel)]="typeId" value="3">
+                <label class="form-check-label" for="inlineRadio3">Stuks</label>
+              </div>
+
+              <hr>
+
+              
+        </div>
