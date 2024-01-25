@@ -56,7 +56,7 @@ currentSupplierId: any;
   }
 
   ngOnInit() {
-    this.fetchMyData();
+    this.fetchStockItems();
     this.getProducts();
     this.getSuppliers();
   }
