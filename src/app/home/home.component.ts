@@ -10,5 +10,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  username: string | null | undefined;
+isLoggedIn: boolean = false;
+  ngOnInit() {
+    if (localStorage.getItem('username')){
+      this.username = localStorage.getItem('username');
+    }
+    if (localStorage.getItem('token')){
+      this.isLoggedIn = true
+    }
+  }
 }

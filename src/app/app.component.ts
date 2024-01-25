@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AppComponent {
 isLoggedIn: any;
+  username: string | null | undefined;
   constructor( private toastr: ToastrService) {
   }
 
@@ -28,6 +29,9 @@ isLoggedIn: any;
   ngOnInit(){
    if (localStorage.getItem('token')){
      this.isLoggedIn = true;
-   } 
+   }
+   if (localStorage.getItem('username')){
+     this.username = localStorage.getItem('username');
+   }
   }
 }
