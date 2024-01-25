@@ -20,6 +20,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ProductseditComponent {
+    constructor(private productsService: ProductsService, private ingredientsService: IngredientsService, private toastr: ToastrService){}
+
   productsURL: string = this.productsService.productsURL
   ingredientsURL: string = this.ingredientsService.ingredientsURL
   products: any[] = []
@@ -32,13 +34,16 @@ export class ProductseditComponent {
   myIsFood: any;
   myType: any;
   rowData: any[] | undefined;
+  rowDataEdit: any[] | undefined;
   isFood: any;
 typeId: any;
 productName: any;
+  ingredients: any;
 
 
   ngOnInit() {
     this.getProducts();
+    this.getIngredients();
   }
   
   isFoodRenderer(params: any) {
@@ -47,6 +52,9 @@ productName: any;
     } else {
       return '<i class="fa-regular fa-circle-xmark"></i>';
     }
+  }
+
+  isCheckedRenderer(params: any) {
   }
 
   colDefs: ColDef[] = [
@@ -79,12 +87,33 @@ productName: any;
     }
   ]
 
-  constructor(private productsService: ProductsService, private ingredientsService: IngredientsService, private toastr: ToastrService){}
+  colDefEdit: ColDef[] = [
+    {
+      field: "Ingredient",
+      filter: true,
+      headerName: 'Ingrediënt',
+      minWidth: 200,
+      sortIndex: 0,
+      checkboxSelection: true
+    },
+    {
+      field: "Allergen",
+      filter: true,
+      headerName: 'Allergenen',
+      minWidth: 200
+    }
+  ] 
   getProducts(){
     this.productsService.getProducts().then((data) => {
       this.products = data;
       this.rowData = this.products
     }).catch(error => console.log(error));
+  }
+  getIngredients(){
+    this.ingredientsService.getIngredients().then((data) => {
+      this.ingredients = data;
+      this.rowDataEdit = this.ingredients
+    })
   }
   onGridReady(params:any){
     this.gridApi = params.api;
@@ -118,9 +147,17 @@ productName: any;
     if (this.gridApi.getSelectedRows().length > 1 || this.gridApi.getSelectedRows().length < 1) {
       this.toastr.error('Selecteer slechts één product', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
     }
-    else { this.editMode=true; }
-    let selectedRows = this.gridApi.getSelectedRows();
-    this.myProduct = selectedRows[0].name;
+    else { 
+      this.editMode=true;
+      this.productName = this.gridApi.getSelectedRows()[0].productname;
+      // iterate through the array and set the right measurement type id
+
+      // iterate through the array and set the right type (food or non-food)
+      
+    }
+  }
+  postEdit(){
+    console.log(this.myId, this.myProduct, this.myIngredients, this.myIsFood, this.myType);
   }
   saveChanges(){
     this.productsService.editProduct(this.myId, this.myProduct, this.myIngredients, this.myIsFood, this.myType);
