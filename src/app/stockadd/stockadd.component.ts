@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../shared/products.service';
 import { SuppliersService } from '../shared/suppliers.service';
 import { StockService } from '../shared/stock.service';
+// import toastr
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-stockadd',
@@ -20,7 +22,7 @@ import { StockService } from '../shared/stock.service';
 })
 export class StockaddComponent {
 
-  constructor(private stockService: StockService, private productsService: ProductsService, private suppliersService: SuppliersService) { }
+  constructor(private stockService: StockService, private productsService: ProductsService, private suppliersService: SuppliersService, private toastr: ToastrService) { }
 
   //product selected in form ngModel
   myProduct: any;
@@ -45,25 +47,19 @@ export class StockaddComponent {
 
 
 
-  getProducts() {
-    this.productsService.getProducts().then(data => {
-      this.products = data;
-      console.log(this.products);
-    }).catch(error => console.log(error));
+  async fetchProducts() {
+    this.products = await this.productsService.getProducts();
   }
 
-  getSuppliers() {
-    this.suppliersService.getSuppliers().then(data => {
-      this.suppliers = data;
-      console.log(this.suppliers);
-    }).catch(error => console.log(error));
+
+  async fetchSuppliers() {
+    this.suppliers = await this.suppliersService.getSuppliers();
   }
 
-  getStockItems() {
-    this.stockService.getStockItems().then(data => {
-      this.stockItems = data;
-      this.rowData = this.stockItems
-    }).catch(error => console.log(error));
+
+  async fetchStockItems() {
+    this.stockItems = await this.stockService.getStockItems();
+    this.rowData = this.stockItems
   }
 
 
@@ -76,36 +72,35 @@ export class StockaddComponent {
     }
   }
 
-  postItem() {
-    console.log(this.myProduct);
-    console.log(this.myQuantity);
-    console.log(this.myDate);
-    console.log(this.mySupplier);
-
+  async postStockItem() {
     // Access the service and send a stockitem
-    this.stockService.postStockItem(
+    await this.stockService.postStockItem(
       this.myProduct,
       this.myQuantity,
       this.myDate,
-      this.mySupplier
-    ).then(() => {
-      // Clear the fields
-      this.myProduct = '';
-      this.myQuantity = 0;
-      this.myDate = new Date();
-      this.mySupplier = '';
+      this.mySupplier)
+    // Clear the fields
+    this.myProduct = '';
+    this.myQuantity = 0;
+    this.myDate = new Date();
+    this.mySupplier = '';
+    //refresh grid
+    this.fetchStockItems();
+    //show success message
+    this.toastr.success('Stockitem toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+    // refresh the page by redirecting to its own url
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000);
 
-      //refresh grid
-      this.getStockItems();
-    });
+  };
 
-  }
 
   //data loaded when page is initialized
   ngOnInit() {
-    this.getProducts();
-    this.getSuppliers();
-    this.getStockItems();
+    this.fetchProducts();
+    this.fetchSuppliers();
+    this.fetchStockItems();
   }
 
   //data showing in the overview grid

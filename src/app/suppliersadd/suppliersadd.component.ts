@@ -1,56 +1,56 @@
-  import { CommonModule } from '@angular/common';
-  import { Component } from '@angular/core';
-  import { RouterOutlet } from '@angular/router';
-  // import grid module
-  import { AgGridModule } from 'ag-grid-angular';
-  import { ColDef } from 'ag-grid-community';
-  import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+// import grid module
+import { AgGridModule } from 'ag-grid-angular';
+import { ColDef } from 'ag-grid-community';
+import { FormsModule } from '@angular/forms';
+import { SuppliersService } from '../shared/suppliers.service';
+// import toastr
+import { ToastrService } from 'ngx-toastr';
 
-  @Component({
-    selector: 'app-suppliersadd',
-    standalone: true,
-    imports: [CommonModule, RouterOutlet, AgGridModule, FormsModule],
-    templateUrl: './suppliersadd.component.html',
-    styleUrl: './suppliersadd.component.css'
-  })
-  export class SuppliersaddComponent {
-    url: string = 'http://127.0.0.1:8000/api/suppliers';
+@Component({
+  selector: 'app-suppliersadd',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, AgGridModule, FormsModule],
+  templateUrl: './suppliersadd.component.html',
+  styleUrl: './suppliersadd.component.css'
+})
+export class SuppliersaddComponent {
 
-    suppliers: any[] = [];
-    supplierName: string = '';
+  constructor(private suppliersService: SuppliersService, private toastr: ToastrService) { }
 
-    postItem() {
-    const options = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8'},
-      body: JSON.stringify({name: this.supplierName}),
-    };
-    
-    fetch('http://127.0.0.1:8000/api/suppliers', options)
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));    
-    }
-    fetchMyData() {
-      fetch(this.url)
-        .then(response => response.json())
-        .then(json => {
-          this.suppliers = json
-          // save suppliers as rowData
-          this.rowData = this.suppliers
-        })
+  url: string = 'http://127.0.0.1:8000/api/suppliers';
 
-        // Clear the input field
-        this.supplierName = '';
+  suppliers: any[] = [];
+  supplierName: string = '';
+
+  async fetchSuppliers() {
+    this.suppliers = await this.suppliersService.getSuppliers();
+    // save suppliers as rowData
+    this.rowData = this.suppliers;
+    // Clear the input field
+    this.supplierName = '';
   }
 
-    ngOnInit() {
-      this.fetchMyData();
-    }
-    // assign rowData for module
-    rowData = this.suppliers;
-    // Define table columns
-    colDefs: ColDef[] = [
-      { field: "name", filter: true },
-    ]
+  async postSupplier() {
+    await this.suppliersService.postSupplier(this.supplierName);
+    this.fetchSuppliers();
+    // Show success message
+    this.toastr.success('Leverancier toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+    // refresh the page by redirecting to its own url
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000);
   }
+
+  ngOnInit() {
+    this.fetchSuppliers();
+  }
+  // assign rowData for module
+  rowData = this.suppliers;
+  // Define table columns
+  colDefs: ColDef[] = [
+    { field: "name", filter: true },
+  ]
+}

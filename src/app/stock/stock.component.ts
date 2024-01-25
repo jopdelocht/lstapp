@@ -22,14 +22,10 @@ export class StockComponent {
   stockitemsURL = this.stockService.stockitemsURL;
   stockItems: any[] = [];
 
-  fetchStock() {
-    fetch(this.stockitemsURL)
-      .then(response => response.json())
-      .then(json => {
-        this.stockItems = json
-        // save stockitems as rowData
-        this.rowData = this.stockItems
-      }).catch(error => console.log(error));
+  async fetchStock() {
+    this.stockItems = await this.stockService.getStockItems();
+    // save stockitems as rowData
+    this.rowData = this.stockItems
   }
 
   ngOnInit() {

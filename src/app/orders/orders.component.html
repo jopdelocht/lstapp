@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5 leftcontainer mt-2">
+            <div id="header" class="text-center m-2">
+                <h3>Receptberekening</h3>
+            </div>
+            <hr>
+            <div class="form-group d-flex align-items-center">
+                <label for="recipeName">Recept:</label>
+                <select class="form-select" [(ngModel)]="myRecipe">
+                    <option *ngFor="let recipename of getUniqueRecipes()" [value]="recipename">
+                        {{ recipename }}</option>
+                </select>
+                <button class="btn btn-primary ms-2" type="button" id="button-addon2"
+                    (click)="filteredRecipes = checkForRecipeIncludes()">Zoek</button>
+            </div>
+            <div *ngIf="firstFilteredRecipe">
+                <h4>{{ firstFilteredRecipe.recipename }} - {{ firstFilteredRecipe.basevalue }} {{
+                    firstFilteredRecipe.measurement}}</h4>
+            </div>
+            <div id="filteredrecipelist">
+                @for(filteredRecipe of filteredRecipes; track filteredRecipe.id) {
+                <li>{{ filteredRecipe.productname }} - {{ filteredRecipe.quantity }} {{ filteredRecipe.measurement}}
+                </li>
+                }
+            </div>
+            <hr>
+            <div class="form-group d-flex align-items-center mt-2">
+                <div class="form-group">
+                    <label for="newQuantity">Nieuwe hoeveelheid:</label>
+                    <input type="number" class="form-control" [(ngModel)]="myQuantity">
+                    <button class="btn btn-primary ms-2" type="button" id="button-addon2"
+                        (click)="calculateNewValues(checkForRecipeIncludes())">Bereken</button>
+                </div>
+            </div>
+            <div *ngIf="firstCalculatedValue">
+                <h4>{{ firstCalculatedValue.recipename }} - {{ myQuantity }} {{
+                    firstCalculatedValue.measurement}}</h4>
+            </div>
+            <div id="newrecipelist">
+                @for(calculatedValue of calculatedValues; track calculatedValue.id) {
+                <li>{{ calculatedValue.productname }} - {{calculatedValue.quantity }} {{ calculatedValue.measurement}}
+                </li>
+                }
+            </div>
+            <!-- <select class="form-select mb-2" [(ngModel)]="myRecipe">
+                @for (recipeproduct of recipeproducts; track recipeproduct.id) {
+                <option value [value]="recipeproduct.id">
+                    {{ recipeproduct.recipename }}</option>}
+            </select> -->
+        </div>
+        <div class="col-md-7">
+            <!-- AG Grid version of the table -->
+            <ag-grid-angular class="ag-theme-quartz mt-2" style="height:85vh;" [rowData]="rowData"
+                [columnDefs]="colDefs" [pagination]="true" [paginationAutoPageSize]="true">
+            </ag-grid-angular>
+        </div>
+    </div>
+
+</div>

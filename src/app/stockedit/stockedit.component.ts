@@ -21,7 +21,6 @@ import { SuppliersService } from '../shared/suppliers.service';
   styleUrl: './stockedit.component.css'
 })
 export class StockeditComponent {
-  stockitemsURL = this.stockService.stockitemsURL;
   stockItems: any[] = [];
   gridApi: any;
   columnApi: any;
@@ -37,14 +36,10 @@ currentSupplierId: any;
 
   constructor(private stockService: StockService, private toastr: ToastrService, private productsService: ProductsService, private suppliersService: SuppliersService) { }
 
-  fetchMyData() {
-    fetch(this.stockitemsURL)
-      .then(response => response.json())
-      .then(json => {
-        this.stockItems = json
-        // save stockitems as rowData
-        this.rowData = this.stockItems
-      }).catch(error => console.log(error));
+  async fetchStockItems() {
+    this.stockItems = await this.stockService.getStockItems();
+    // save stockitems as rowData
+    this.rowData = this.stockItems
   }
   getProducts() {
     this.productsService.getProducts().then(data => {
@@ -121,12 +116,14 @@ currentSupplierId: any;
     idArray.forEach((id: any) => {
       // console.log(id)
       // call the deleteStockItems method
-      this.stockService.deleteStockItems(id);});
+      this.stockService.deleteStockItems(id);
+    });
     // show toast message to the user that the item(s) have been deleted
     if (idArray.length > 1) {
-      this.toastr.success('Producten verwijderd', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
-    }else{this.toastr.success('Product verwijderd', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
-  }
+      this.toastr.success('Producten verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+    } else {
+      this.toastr.success('Product verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+    }
     // refresh the page by redirecting to its own url
     setTimeout(() => {
       window.location.reload()
