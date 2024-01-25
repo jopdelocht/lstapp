@@ -33,6 +33,7 @@ myDate: any;
 mySupplier: any;
 suppliers: any;
 currentSupplierId: any;
+  myId: any;
 
   constructor(private stockService: StockService, private toastr: ToastrService, private productsService: ProductsService, private suppliersService: SuppliersService) { }
 
@@ -85,11 +86,6 @@ currentSupplierId: any;
       headerName: 'Hoeveelheid'
     },
     {
-      field: "ingredient",
-      filter: true,
-      headerName: 'Ingrediënten'
-    },
-    {
       field: "expirationdate",
       filter: true,
       headerName: 'Vervaldatum',
@@ -100,11 +96,6 @@ currentSupplierId: any;
       field: "supplier",
       filter: true,
       headerName: 'Leverancier'
-    },
-    {
-      field: "isfood",
-      filter: true,
-      headerName: 'Voeding'
     }
   ]
   //functions needed for selecting and printing row data
@@ -142,20 +133,44 @@ currentSupplierId: any;
     }, 2000);
   }
   editCurrentRow() {
+    // save ID of the selected row
+    this.myId = this.gridApi.getSelectedRows()[0].id;
+    // get array of the selected rows
     this.getSelectedRows();
-    if (this.gridApi.getSelectedRows().length > 1) {
-      this.toastr.error('Selecteer slechts een item', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+    // make sure only one row is selected
+    if (this.gridApi.getSelectedRows().length > 1 || this.gridApi.getSelectedRows().length < 1) {
+      this.toastr.error('Selecteer één item', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
     }
     else { this.editMode = true; }
-    // input the current selected row's data into the input fields
+
+  // input the current selected row's data into the input fields
+    // get the selected rows
     let selectedRows = this.gridApi.getSelectedRows();
-    // compare product name to it's id and input the right id
-    this.myProduct = selectedRows[0].product;
-    // set the quantity
+    // iterate through the products and set the right id
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i].productname === selectedRows[0].product) {
+        this.myProduct = this.products[i].id;
+      }
+    }
+    // set the quantity to the selectedRow
     this.myQuantity = selectedRows[0].quantity;
     // set the expiration date
     this.myDate = selectedRows[0].expirationdate;
-    // compare supplier content to it's id and input the right id
-    this.mySupplier = selectedRows[0].supplier;
+    // iterate through the suppliers and set the right id
+    for (let i = 0; i < this.suppliers.length; i++) {
+      if (this.suppliers[i].name === selectedRows[0].supplier) {
+        this.mySupplier = this.suppliers[i].id;
+      }
+    }
+  }
+  saveChanges() {
+    // call the updateStockItem method
+    this.stockService.updateStockItem(this.myId, this.myProduct, this.myQuantity, this.myDate, this.mySupplier);
+    // Show toast message to the user that the item has been edited
+    this.toastr.success('Product bewerkt', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+    // refresh the page by redirecting to its own url
+    setTimeout(() => {
+      window.location.reload()
+    }, 2000);
   }
 }
