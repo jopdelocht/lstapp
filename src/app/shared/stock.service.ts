@@ -32,7 +32,7 @@ export class StockService {
     return result.json();
   };
 
-  //creation of a async await method for the deleteStockItem
+  //creation of a async await method for the deleteStockItem d
   async deleteStockItems(id: any) {
     const options = {
       method: 'DELETE',
