@@ -7,7 +7,7 @@ export class SuppliersService {
 
   constructor() { }
   // put suppliers API Endpoint URL in constant
-  suppliersURL: string = 'http://127.0.0.1:8000/api/suppliers';
+  suppliersURL: string = 'http://127.0.0.1:8000/api/suppliers/';
 
   // get suppliers
   async getSuppliers() {

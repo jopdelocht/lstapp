@@ -82,6 +82,9 @@ export class SupplierseditComponent {
         this.toastr.success('Leverancier verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
       }
     }
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
   editCurrentRow(){
     this.myId = this.gridApi.getSelectedRows()[0].id;
