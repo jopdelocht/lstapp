@@ -62,4 +62,12 @@ export class OrdersService {
     fetch(this.fullfillLineItemURL, options);
   }
 
+  async deleteOrder(orderid: any) {
+    const options = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      body: 'false'
+    };
+    const result = await fetch(this.ordersURL + orderid, options);
+   }
 }
