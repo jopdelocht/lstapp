@@ -49,11 +49,13 @@ export class StockaddComponent {
 
   async fetchProducts() {
     this.products = await this.productsService.getProducts();
+    console.log(this.products)
   }
 
 
   async fetchSuppliers() {
     this.suppliers = await this.suppliersService.getSuppliers();
+    console.log(this.suppliers)
   }
 
 

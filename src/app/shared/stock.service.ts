@@ -8,7 +8,7 @@ export class StockService {
 
   constructor() { }
   // Put stockitems API Endpoint URL in constant
-  stockitemsURL: string = 'http://127.0.0.1:8000/api/stockitems';
+  stockitemsURL: string = 'http://127.0.0.1:8000/api/stockitems/';
 
   // get stockitems
   async getStockItems() {
@@ -39,7 +39,7 @@ export class StockService {
       headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
       body: 'false'
     };
-    const result = await fetch('http://127.0.0.1:8000/api/stockitems/' + id, options);
+    const result = await fetch(this.stockitemsURL + id, options);
    }
   //  creation of a async await method for the updateStockItem
    async updateStockItem(myId: any, myProduct: number, myQuantity: number, myDate: Date, mySupplier: number) {
@@ -49,7 +49,7 @@ export class StockService {
       expirationdate: myDate,
       supplier_id: mySupplier
     };
-    const result = await fetch('http://127.0.0.1:8000/api/stockitems/'+myId, {
+    const result = await fetch(this.stockitemsURL+myId, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
       body: JSON.stringify(item)
