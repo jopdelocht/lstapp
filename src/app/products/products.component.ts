@@ -46,7 +46,7 @@ export class ProductsComponent {
   // Define table columns
   colDefs: ColDef[] = [
     {
-      field: "productname",
+      field: "Product",
       filter: true,
       headerName: 'Beschrijving',
       minWidth: 280,
@@ -54,7 +54,7 @@ export class ProductsComponent {
       sort: 'asc'
     },
     {
-      field: "ingredient",
+      field: "Ingredient",
       filter: true,
       headerName: 'Ingrediënten'
     },
@@ -64,12 +64,12 @@ export class ProductsComponent {
     //   headerName: 'Allergenen'
     // },
     {
-      field: "type",
+      field: "Type",
       filter: true,
       headerName: 'Type'
     },
     {
-      field: "isfood",
+      field: "IsFood",
       filter: true,
       headerName: 'Voeding',
       cellRenderer: this.isFoodRenderer.bind(this),
