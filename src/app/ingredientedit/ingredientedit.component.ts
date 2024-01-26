@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './ingredientedit.component.css'
 })
 export class IngredienteditComponent {
+  selectedRows: any;
   constructor(private ingredientsService: IngredientsService, private toastr: ToastrService) { }
   allergens: any
   ingredientsURL: string = this.ingredientsService.ingredientsURL
@@ -27,7 +28,7 @@ export class IngredienteditComponent {
   editMode: boolean = false
   myId: any
   myIngredient: any
-  myAllergen: any
+  myAllergens: any
   rowData: any[] | undefined
   rowDataEdit: any[] | undefined
   ingredientName: string = ''
@@ -85,6 +86,7 @@ export class IngredienteditComponent {
     console.log(selectedRows)
   }
   editCurrentRow() {
+    console.log(this.gridApi.getSelectedRows())
     if (this.gridApi.getSelectedRows().length > 1 || this.gridApi.getSelectedRows().length < 1) {
       this.toastr.error('Selecteer slechts één ingrediënt', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
     }else {
@@ -115,13 +117,14 @@ export class IngredienteditComponent {
   }
   saveChanges() {
     if (this.ingredientName) {
-      for (let i = 0; i < this.allergens.length; i++) {
-        if (this.ingredientName == this.allergens[i].name) {
-          this.myAllergen = this.allergens[i].Allergen_id
-          console.log(this.myAllergen)
-        }
-      }
-      // this.ingredientsService.editIngredient(this.myId, this.ingredientName, this.myAllergen);
+      this.selectedRows = this.gridApi.getSelectedRows();
+      // map the selected rows
+      this.myAllergens = this.selectedRows.map((x: { id: any; }) => x.id);
+      // convert myAllergens to a string
+      this.myAllergens = this.myAllergens.join(',');
+      this.myIngredient = this.ingredientName
+      console.log(this.myId, this.ingredientName, this.myAllergens)
+      this.ingredientsService.editIngredient(this.myId, this.ingredientName, this.myAllergens);
       this.toastr.success('Ingrediënt bewerkt', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
       setTimeout(() => {
         window.location.reload()

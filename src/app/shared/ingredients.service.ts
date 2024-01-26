@@ -8,8 +8,8 @@ export class IngredientsService {
   constructor() { }
 
   // Put ingredients API Endpoint URL in constant
-  ingredientsURL: string = 'http://127.0.0.1:8000/api/ingredients';
-  allergensURL: string = 'http://127.0.0.1:8000/api/allergens';
+  ingredientsURL: string = 'http://127.0.0.1:8000/api/ingredients/';
+  allergensURL: string = 'http://127.0.0.1:8000/api/allergens/';
 
   //get ingredients
   async getIngredients() {
@@ -24,12 +24,12 @@ export class IngredientsService {
       headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
       body: 'false'
     };
-    const result = await fetch('http://127.0.0.1:8000/api/ingredients/' + Ingredient_id, options);
+    const result = await fetch(this.ingredientsURL + Ingredient_id, options);
    }
-   async editIngredient(myId: any, myIngredient: any, myAllergen: any) {
+   async editIngredient(myId: any, myIngredient: any, myAllergens: any) {
     const item = {
       name: myIngredient,
-      allergens: myAllergen
+      allergens: myAllergens
     };
     const result = await fetch(this.ingredientsURL + myId, {
       method: 'PATCH',
