@@ -20,10 +20,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ProductseditComponent {
-    constructor(private productsService: ProductsService, private ingredientsService: IngredientsService, private toastr: ToastrService){}
-
+  constructor(private productsService: ProductsService, private ingredientsService: IngredientsService, private toastr: ToastrService){}
+  
+  allergens: any;
   productsURL: string = this.productsService.productsURL
   ingredientsURL: string = this.ingredientsService.ingredientsURL
+  allergensURL: string = this.ingredientsService.allergensURL
   products: any[] = []
   gridApi: any;
   columnApi: any;
@@ -36,14 +38,15 @@ export class ProductseditComponent {
   rowData: any[] | undefined;
   rowDataEdit: any[] | undefined;
   isFood: any;
-typeId: any;
-productName: any;
+  typeId: any;
+  productName: any;
   ingredients: any;
 
 
   ngOnInit() {
     this.getProducts();
     this.getIngredients();
+    this.getAllergens();
   }
   
   isFoodRenderer(params: any) {
@@ -52,9 +55,6 @@ productName: any;
     } else {
       return '<i class="fa-regular fa-circle-xmark"></i>';
     }
-  }
-
-  isCheckedRenderer(params: any) {
   }
 
   colDefs: ColDef[] = [
@@ -103,10 +103,12 @@ productName: any;
       minWidth: 200
     }
   ] 
+
   getProducts(){
     this.productsService.getProducts().then((data) => {
       this.products = data;
       this.rowData = this.products
+      console.log(this.products)
     }).catch(error => console.log(error));
   }
   getIngredients(){
@@ -115,6 +117,13 @@ productName: any;
       this.rowDataEdit = this.ingredients
     })
   }
+  getAllergens(){
+    this.ingredientsService.getAllergens().then((data) => {
+      this.allergens = data
+      console.log(this.allergens)
+    })
+  }
+
   onGridReady(params:any){
     this.gridApi = params.api;
     this.columnApi = params.columnApi
@@ -143,6 +152,7 @@ productName: any;
     }
   }
   editCurrentRow(){
+    console.log(this.gridApi.getSelectedRows());
     this.myId = this.gridApi.getSelectedRows()[0].id;
     if (this.gridApi.getSelectedRows().length > 1 || this.gridApi.getSelectedRows().length < 1) {
       this.toastr.error('Selecteer slechts één product', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
@@ -150,8 +160,8 @@ productName: any;
     else { 
       this.editMode=true;
       this.productName = this.gridApi.getSelectedRows()[0].productname;
-      // iterate through the array and set the right measurement type id
-
+      // set the type of isFood to the selectedRow 
+      
       // iterate through the array and set the right type (food or non-food)
       
     }

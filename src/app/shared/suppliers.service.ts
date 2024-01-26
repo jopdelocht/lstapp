@@ -41,6 +41,6 @@ export class SuppliersService {
       headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
       body: 'false'
     };
-    const result = await fetch('http://127.0.0.1:8000/api/stockitems/' + id, options);
+    const result = await fetch(this.suppliersURL + id, options);
    }
 }

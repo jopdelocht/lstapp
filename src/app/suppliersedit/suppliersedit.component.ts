@@ -69,17 +69,18 @@ export class SupplierseditComponent {
     // get array of the selected rows
     this.getSelectedRows();
     if (this.gridApi.getSelectedRows().length == 0) {
-      this.toastr.error('Geen leveranciers geselecteerd', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
-    }
-    let selectedRows = this.gridApi.getSelectedRows();
-    let idArray = selectedRows.map((x: { id: any; }) => x.id);
-    idArray.forEach((id: any) => {
-      this.suppliersService.deleteSupplier(id);
-    })
-    if (idArray.length > 1) {
-      this.toastr.success('Leveranciers verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
-    } else {
-      this.toastr.success('Leverancier verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+        this.toastr.error('Geen leveranciers geselecteerd', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+      } else {
+      let selectedRows = this.gridApi.getSelectedRows();
+      let idArray = selectedRows.map((x: { id: any; }) => x.id);
+      idArray.forEach((id: any) => {
+        this.suppliersService.deleteSupplier(id);
+      })
+      if (idArray.length > 1) {
+        this.toastr.success('Leveranciers verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+      } else {
+        this.toastr.success('Leverancier verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+      }
     }
   }
   editCurrentRow(){
