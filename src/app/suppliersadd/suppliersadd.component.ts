@@ -34,6 +34,9 @@ export class SuppliersaddComponent {
   }
 
   async postSupplier() {
+    if (!this.supplierName) {
+      this.toastr.error('Vul leveranciernaam in', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+    } else {
     await this.suppliersService.postSupplier(this.supplierName);
     this.fetchSuppliers();
     // Show success message
@@ -42,6 +45,7 @@ export class SuppliersaddComponent {
     setTimeout(() => {
       window.location.reload()
     }, 2000);
+  }
   }
 
   ngOnInit() {

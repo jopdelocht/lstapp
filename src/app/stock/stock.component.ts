@@ -26,6 +26,7 @@ export class StockComponent {
     this.stockItems = await this.stockService.getStockItems();
     // save stockitems as rowData
     this.rowData = this.stockItems
+    console.log(this.stockItems)
   }
 
   ngOnInit() {
@@ -49,11 +50,6 @@ export class StockComponent {
       headerName: 'Hoeveelheid'
     },
     {
-      field: "ingredient",
-      filter: true,
-      headerName: 'Ingrediënten'
-    },
-    {
       field: "expirationdate",
       filter: true,
       headerName: 'Vervaldatum',
@@ -64,11 +60,6 @@ export class StockComponent {
       field: "supplier",
       filter: true,
       headerName: 'Leverancier'
-    },
-    {
-      field: "isfood",
-      filter: true,
-      headerName: 'Voeding'
     }
   ]
 }

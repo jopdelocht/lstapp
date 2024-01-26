@@ -24,6 +24,9 @@ export class LoginComponent {
   }
 
   async onSubmit(){
+    if (!this.username || !this.password){
+      this.toastr.error('Vul alle velden in', 'Error');
+    } else if (this.username && this.password){
     const token = await this.userService.login(this.username, this.password);
     if (token){
       localStorage.setItem('token', token)
@@ -36,6 +39,7 @@ export class LoginComponent {
     this.username = '';
     this.password = '';
     // this.email ='';
+  }
   }
   redirectToHome(){
     location.replace('http://localhost:4200/home');

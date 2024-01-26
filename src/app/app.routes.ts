@@ -15,6 +15,7 @@ import { SuppliersaddComponent } from './suppliersadd/suppliersadd.component';
 import { SupplierseditComponent } from './suppliersedit/suppliersedit.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { OrdereditComponent } from './orderedit/orderedit.component';
 
 // Auth guard and login component
 import { authGuard } from './auth.guard';
@@ -93,5 +94,10 @@ export const routes: Routes = [
     {
         path: 'orders',
         component: OrdersComponent
+    },
+    {
+        path: 'orderedit',
+        // canActivate: [authGuard],
+        component: OrdereditComponent
     }
 ];

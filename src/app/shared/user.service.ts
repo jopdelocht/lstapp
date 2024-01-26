@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import * as bcrypt from 'bcryptjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private toastr: ToastrService) { }
 
   // Put Users API Endpoint URL in constant
   userURL: string = 'http://localhost:8000/api/users/';
@@ -31,13 +32,13 @@ export class UserService {
         body: JSON.stringify(user)
       });
       // confirm user created
-      alert("Succesvol geregistreerd")
+      this.toastr.success('Succesvol geregistreerd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
       // call method to go to login
       this.goToLogin();
       return result.json();
     } else {
       // error if user or email already exists
-      alert("Gebruikersnaam en/of email bestaat al")
+      this.toastr.error('Gebruikersnaam en/of email bestaat al', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
     }
   }
 

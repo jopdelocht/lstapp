@@ -87,9 +87,9 @@ export class ProductsaddComponent {
     // show success message
     this.toastr.success('Product toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
     // refresh the page by redirecting to its own url
-    setTimeout(() => {
-      window.location.reload()
-    }, 2000);
+    // setTimeout(() => {
+    //   window.location.reload()
+    // }, 2000);
     }
   }
 }
