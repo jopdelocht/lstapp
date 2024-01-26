@@ -45,6 +45,10 @@
                 <button class="btn btn-primary ms-2" type="button" id="button-addon2"
                     (click)="calculateNewValues(checkForRecipeIncludes())">Bereken</button>
             </div>
+            <br><br><br>
+            <div>
+                <button class="btn btn-primary ms-2" type="button" id="button-addon2" (click)="deleteSelectedRowFromStock()">Verwijder uit stock</button>
+            </div>
 
             <div *ngIf="firstCalculatedValue">
                 <h4>{{ firstCalculatedValue.recipename }} - {{ myQuantity }} {{
@@ -62,8 +66,15 @@
         </div>
         <div class="col-md-8">
             <!-- AG Grid version of the table -->
-            <ag-grid-angular class="ag-theme-quartz mt-2" style="height:85vh;" [rowData]="rowData"
-                [columnDefs]="colDefs" [pagination]="true" [paginationAutoPageSize]="true">
+            <ag-grid-angular 
+            class="ag-theme-quartz mt-2" 
+            style="height:85vh;" 
+            [rowData]="rowData"
+            [columnDefs]="colDefs" 
+            [pagination]="true"
+            (gridReady)="onGridReady($event)"
+            [paginationAutoPageSize]="true"
+            >
             </ag-grid-angular>
         </div>
     </div>

@@ -6,7 +6,7 @@ import { GramsToKilosPipe } from '../grams-to-kilos.pipe';
 // import grid module
 import { AgGridModule } from 'ag-grid-angular';
 import { StockService } from '../shared/stock.service';
-import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
 import { ToastrService } from 'ngx-toastr';
 // for edit
 import { FormsModule } from '@angular/forms';
@@ -20,21 +20,27 @@ import { SuppliersService } from '../shared/suppliers.service';
   templateUrl: './stockedit.component.html',
   styleUrl: './stockedit.component.css'
 })
+
 export class StockeditComponent {
+  constructor(
+    private stockService: StockService,
+    private toastr: ToastrService,
+    private productsService: ProductsService,
+    private suppliersService: SuppliersService
+  ) { }
+
   stockItems: any[] = [];
   gridApi: any;
   columnApi: any;
   editMode: boolean = false;
-myProduct: any;
-products: any;
-myQuantity: any;
-myDate: any;
-mySupplier: any;
-suppliers: any;
-currentSupplierId: any;
+  myProduct: any;
+  products: any;
+  myQuantity: any;
+  myDate: any;
+  mySupplier: any;
+  suppliers: any;
+  currentSupplierId: any;
   myId: any;
-
-  constructor(private stockService: StockService, private toastr: ToastrService, private productsService: ProductsService, private suppliersService: SuppliersService) { }
 
   async fetchStockItems() {
     this.stockItems = await this.stockService.getStockItems();
@@ -99,11 +105,12 @@ currentSupplierId: any;
     this.columnApi = params.columnApi;
   }
 
-  //get selected rows
+  // get selected rows
   getSelectedRows() {
     let selectedRows = this.gridApi.getSelectedRows();
     console.log(selectedRows);
   }
+
   // DELETE selected rows
   deleteSelectedRows() {
     // get array of the selected rows

@@ -11,7 +11,7 @@ import { IngredientsService } from '../shared/ingredients.service';
 import { ClientsService } from '../shared/clients.service';
 //import formsmodule
 import { FormsModule } from '@angular/forms';
-import { ProductsService } from '../shared/products.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-orders',
@@ -20,39 +20,59 @@ import { ProductsService } from '../shared/products.service';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
-export class OrdersComponent {
-  // variable needed for callback filter method
-  myRecipe: any;
 
+export class OrdersComponent {
   constructor(
     private ordersService: OrdersService,
     private ingredientsService: IngredientsService,
     private RecipeProductService: RecipeProductService,
-    private ClientsService: ClientsService) { }
+    private ClientsService: ClientsService,
+    private toastr: ToastrService
+    ) { }
+
+  // variable needed for callback filter method
+  myRecipe: any;
 
   // defines recipeproduct url and empty array for storing recipeproducts
   recipeproducts: any[] = [];
+
   // array where i'm storing the filtered recipes
   filteredRecipes: any[] = [];
   firstFilteredRecipe: any;
+
   // variable coming from input field for new quantity
   myQuantity: number = 0;
+
   // storing freshly calculated values in this array
   calculatedValues: any[] = []
   calculatedValue: any = {};
   firstCalculatedValue: any;
+
   // array for storing ingredients
   ingredientsArray: [{}] = [{}];
+
   // array for storing orders
   orders: [{}] = [{}];
+
   // array for storing clients
   clients: any[] = [];
+
   // variable for myClient
   myClient: any;
+
   // variables for storing the result of the ingredientnames and allergennames method
   ingredientNames: any;
   allergenNames: any;
 
+  gridApi: any;
+  columnApi: any;
+
+  myOrder: any;
+
+  onGridReady(params: any) {
+    this.gridApi = params.api;
+    this.columnApi = params.columnApi;
+  }
 
   async fetchRecipeProduct() {
     this.recipeproducts = await this.RecipeProductService.getRecipeProduct();
@@ -85,8 +105,6 @@ export class OrdersComponent {
     } else {
       this.firstFilteredRecipe = null;
     }
-    console.log(this.filteredRecipes);
-    console.log(this.ingredientsArray);
     return this.filteredRecipes;
   }
 
@@ -156,6 +174,7 @@ export class OrdersComponent {
   }
 
   async postOrder(calculatedItem: any) {
+    
     // Access the service and send a stockitem
     await this.ordersService.postOrder(
       this.myClient,
@@ -165,21 +184,23 @@ export class OrdersComponent {
       calculatedItem.productname,
       calculatedItem.measurement,
       this.ingredientNames,
-      this.allergenNames)
-
-    console.log(this.myClient);
-    console.log(this.myQuantity);
-    console.log(calculatedItem.recipename);
-    console.log(calculatedItem.quantity);
-    console.log(calculatedItem.productname);
-    console.log(calculatedItem.measurement);
-    console.log(this.ingredientNames);
-    console.log(this.allergenNames);
+      this.allergenNames
+      )
 
     //refresh grid
     this.fetchOrders();
   };
 
+  async deleteSelectedRowFromStock() {
+    if (this.gridApi.getSelectedRows().length == 0) {
+      this.toastr.error('Geen producten geselecteerd', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+    } else {
+      let selectedRows = this.gridApi.getSelectedRows();
+      let lineItemId = selectedRows.map((x: { orderid: any; }) => x.orderid)[0];
+      
+      this.ordersService.fulfillLineItem(lineItemId);
+    }
+  }
 
   ngOnInit() {
     this.fetchRecipeProduct();
@@ -188,7 +209,6 @@ export class OrdersComponent {
     this.fetchOrders();
     this.fetchClients();
   }
-
 
   // assign rowdata to grid
   rowData = this.orders;
@@ -200,7 +220,8 @@ export class OrdersComponent {
       headerName: 'Klantnaam',
       maxWidth: 150,
       sortIndex: 0,
-      sort: 'asc'
+      sort: 'asc',
+      checkboxSelection: true
     },
     {
       field: "totalquantity",
@@ -244,4 +265,3 @@ export class OrdersComponent {
     }
   ];
 }
-

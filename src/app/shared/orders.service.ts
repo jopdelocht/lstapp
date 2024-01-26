@@ -9,10 +9,16 @@ export class OrdersService {
 
   //Put recipe_product API endpoint URL in constant
   ordersURL: string = 'http://127.0.0.1:8000/api/orders';
+  fullfillLineItemURL: string = 'http://127.0.0.1:8000/api/fullfill_line_item';
 
   // get recipe_product
   async getOrders() {
     return (await fetch(this.ordersURL)).json()
+  }
+
+  // Creation of async to removeLineItem from stock
+  async removeLineItem(id: any) {
+    console.log(id);
   }
 
   //creation of a async await method for the postOrder
@@ -42,5 +48,18 @@ export class OrdersService {
     const result = await fetch(this.ordersURL, options);
     return result.json();
   };
+
+  fulfillLineItem(orderId: string) {
+    
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      body: JSON.stringify({
+        orderId: orderId
+      })
+    };
+
+    fetch(this.fullfillLineItemURL, options);
+  }
 
 }

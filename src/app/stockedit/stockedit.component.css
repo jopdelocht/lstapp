@@ -1,3 +1,7 @@
+h3 {
+    color: #B16F6E;
+}
+
 .btn-primary {
     --bs-btn-color: black;
     --bs-btn-bg: #FEEBF1;
@@ -13,4 +17,8 @@
     --bs-btn-disabled-color: none;
     --bs-btn-disabled-bg: none;
     --bs-btn-disabled-border-color: none;
+}
+
+span#inputGroup-sizing-default {
+    width: 7rem;
 }
