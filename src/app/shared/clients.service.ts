@@ -7,7 +7,7 @@ export class ClientsService {
 
   constructor() { }
   // put clients API endpoint URL in constant
-  clientsURL: string = 'http://127.0.0.1:8000/api/clients';
+  clientsURL: string = 'http://127.0.0.1:8000/api/clients/';
 
   // get clients
   async getClients() {

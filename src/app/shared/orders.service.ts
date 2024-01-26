@@ -8,7 +8,7 @@ export class OrdersService {
   constructor() { }
 
   //Put recipe_product API endpoint URL in constant
-  ordersURL: string = 'http://127.0.0.1:8000/api/orders';
+  ordersURL: string = 'http://127.0.0.1:8000/api/orders/';
   fullfillLineItemURL: string = 'http://127.0.0.1:8000/api/fullfill_line_item';
 
   // get recipe_product
