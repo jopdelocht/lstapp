@@ -33,9 +33,10 @@ export class OrdersService {
     allergenNames: string,
     deliveryDate: Date,
     orderDate: string) {
+    const token = localStorage.getItem('token');
     const options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: JSON.stringify({
         client_id: id,
         totalquantity: myQuantity,
@@ -54,10 +55,10 @@ export class OrdersService {
   };
 
   fulfillLineItem(orderId: string) {
-
+    const token = localStorage.getItem('token');
     const options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: JSON.stringify({
         orderId: orderId
       })
@@ -67,9 +68,10 @@ export class OrdersService {
   }
 
   async deleteOrder(orderid: any) {
+    const token = localStorage.getItem('token');
     const options = {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: 'false'
     };
     const result = await fetch(this.ordersURL + orderid, options);

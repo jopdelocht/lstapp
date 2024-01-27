@@ -18,9 +18,10 @@ export class StockService {
 
   //creation of a async await method for the postStockItem
   async postStockItem(stockName: number, stockQuantity: number, stockDate: Date, stockSupplier: number) {
+    const token = localStorage.getItem('token');
     const options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: JSON.stringify({
         product_id: stockName,
         quantity: stockQuantity,
@@ -32,17 +33,19 @@ export class StockService {
     return result.json();
   };
 
-  //creation of a async await method for the deleteStockItem d
+  //creation of a async await method for the deleteStockItem 
   async deleteStockItems(id: any) {
+    const token = localStorage.getItem('token');
     const options = {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: 'false'
     };
     const result = await fetch(this.stockitemsURL + id, options);
    }
   //  creation of a async await method for the updateStockItem
    async updateStockItem(myId: any, myProduct: number, myQuantity: number, myDate: Date, mySupplier: number) {
+    const token = localStorage.getItem('token');
     const item = {
       product_id: myProduct,
       quantity: myQuantity,
@@ -51,7 +54,7 @@ export class StockService {
     };
     const result = await fetch(this.stockitemsURL+myId, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: JSON.stringify(item)
     })
     return result.json();

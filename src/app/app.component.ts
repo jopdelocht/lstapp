@@ -23,6 +23,7 @@ isLoggedIn: any;
   // Logout: delete token
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     this.toastr.success('Uitgelogd', 'Succes');
     setTimeout((this.redirectToHome), 2000);
   }
