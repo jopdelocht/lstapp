@@ -17,6 +17,13 @@
 
             <div class="input-group m-2">
                 <span class="input-group-text" id="inputGroup-sizing-default"><label
+                        for="stockDate">Leverdatum</label></span>
+                <input type="date" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default" [(ngModel)]="deliveryDate" placeholder="Vervaldatum">
+            </div>
+
+            <div class="input-group m-2">
+                <span class="input-group-text" id="inputGroup-sizing-default"><label
                         for="stockName">Recept</label></span>
                 <select type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                     class="form-control" [(ngModel)]="myRecipe">
@@ -47,7 +54,8 @@
             </div>
             <br><br><br>
             <div>
-                <button class="btn btn-primary ms-2" type="button" id="button-addon2" (click)="deleteSelectedRowFromStock()">Verwijder uit stock</button>
+                <button class="btn btn-primary ms-2" type="button" id="button-addon2"
+                    (click)="deleteSelectedRowFromStock()">Verwijder uit stock</button>
             </div>
 
             <div *ngIf="firstCalculatedValue">
@@ -66,15 +74,9 @@
         </div>
         <div class="col-md-8">
             <!-- AG Grid version of the table -->
-            <ag-grid-angular 
-            class="ag-theme-quartz mt-2" 
-            style="height:85vh;" 
-            [rowData]="rowData"
-            [columnDefs]="colDefs" 
-            [pagination]="true"
-            (gridReady)="onGridReady($event)"
-            [paginationAutoPageSize]="true"
-            >
+            <ag-grid-angular class="ag-theme-quartz mt-2" style="height:85vh;" [rowData]="rowData"
+                [columnDefs]="colDefs" [pagination]="true" (gridReady)="onGridReady($event)"
+                [paginationAutoPageSize]="true">
             </ag-grid-angular>
         </div>
     </div>
