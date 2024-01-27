@@ -49,11 +49,13 @@ export class StockaddComponent {
 
   async fetchProducts() {
     this.products = await this.productsService.getProducts();
+    console.log(this.products)
   }
 
 
   async fetchSuppliers() {
     this.suppliers = await this.suppliersService.getSuppliers();
+    console.log(this.suppliers)
   }
 
 
@@ -73,6 +75,9 @@ export class StockaddComponent {
   }
 
   async postStockItem() {
+    if (!this.myProduct || !this.myQuantity || !this.mySupplier || !this.myDate) {
+      this.toastr.error('Vul alle velden in', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+    } else {
     // Access the service and send a stockitem
     await this.stockService.postStockItem(
       this.myProduct,
@@ -92,6 +97,7 @@ export class StockaddComponent {
     setTimeout(() => {
       window.location.reload()
     }, 2000);
+  }
 
   };
 
@@ -129,11 +135,6 @@ export class StockaddComponent {
       field: "supplier",
       filter: true,
       headerName: 'Leverancier'
-    },
-    {
-      field: "isfood",
-      filter: true,
-      headerName: 'Voeding'
     }
   ]
 }

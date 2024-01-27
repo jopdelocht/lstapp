@@ -20,6 +20,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class ProductseditComponent {
+  selectedRows: any;
+  ingredientIDs: any;
   constructor(private productsService: ProductsService, private ingredientsService: IngredientsService, private toastr: ToastrService){}
   
   allergens: any;
@@ -59,7 +61,7 @@ export class ProductseditComponent {
 
   colDefs: ColDef[] = [
     {
-      field: "productname",
+      field: "Product",
       filter: true,
       headerName: 'Beschrijving',
       minWidth: 280,
@@ -68,17 +70,17 @@ export class ProductseditComponent {
       checkboxSelection: true
     },
     {
-      field: "ingredient",
+      field: "Ingredient",
       filter: true,
       headerName: 'Ingrediënten'
     },
     {
-      field: "type",
+      field: "Type",
       filter: true,
       headerName: 'Type'
     },
     {
-      field: "isfood",
+      field: "Isfood",
       filter: true,
       headerName: 'Voeding',
       cellRenderer: this.isFoodRenderer.bind(this),
@@ -141,40 +143,50 @@ export class ProductseditComponent {
       this.toastr.error('Geen producten geselecteerd', 'Error', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
     }
     let selectedRows = this.gridApi.getSelectedRows();
-    let idArray = selectedRows.map((x: { id: any; }) => x.id);
-    idArray.forEach((id: any) => {
-      this.productsService.deleteProduct(id);
+    let idArray = selectedRows.map((x: { Product_id: any; }) => x.Product_id);
+    idArray.forEach((Product_id: any) => {
+      this.productsService.deleteProduct(Product_id);
     })
     if (idArray.length > 1) {
       this.toastr.success('Producten verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
     } else {
       this.toastr.success('Product verwijderd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
     }
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
   editCurrentRow(){
     console.log(this.gridApi.getSelectedRows());
-    this.myId = this.gridApi.getSelectedRows()[0].id;
+    this.myId = this.gridApi.getSelectedRows()[0].Product_id;
     if (this.gridApi.getSelectedRows().length > 1 || this.gridApi.getSelectedRows().length < 1) {
       this.toastr.error('Selecteer slechts één product', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
     }
     else { 
       this.editMode=true;
-      this.productName = this.gridApi.getSelectedRows()[0].productname;
-      // set the type of isFood to the selectedRow 
-      
-      // iterate through the array and set the right type (food or non-food)
-      
+      this.productName = this.gridApi.getSelectedRows()[0].Product;
+      this.isFood = this.gridApi.getSelectedRows()[0].Isfood;
+      this.typeId = this.gridApi.getSelectedRows()[0].Type_id;
     }
   }
-  postEdit(){
-    console.log(this.myId, this.myProduct, this.myIngredients, this.myIsFood, this.myType);
-  }
+
   saveChanges(){
-    this.productsService.editProduct(this.myId, this.myProduct, this.myIngredients, this.myIsFood, this.myType);
-    this.toastr.success('Product bewerkt', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    if (!this.productName || !this.isFood || !this.typeId) {
+     this.toastr.error('Vul alle velden in', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000}); 
+    } else {
+      this.selectedRows = this.gridApi.getSelectedRows();
+      this.myProduct = this.productName;
+      this.ingredientIDs = this.selectedRows.map((x: { Ingredient_id: any; }) => x.Ingredient_id).join(',');
+      this.myIngredients = this.ingredientIDs;
+      this.myIsFood = this.isFood;
+      this.myType = this.typeId;
+      console.log(this.myId, this.myProduct, this.myIngredients, this.myIsFood, this.myType);
+      this.productsService.editProduct(this.myId, this.myProduct, this.myIngredients, this.myIsFood, this.myType);
+      this.toastr.success('Product bewerkt', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }
 }
 

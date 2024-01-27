@@ -156,8 +156,8 @@ export class StockeditComponent {
     let selectedRows = this.gridApi.getSelectedRows();
     // iterate through the products and set the right id
     for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].productname === selectedRows[0].product) {
-        this.myProduct = this.products[i].id;
+      if (this.products[i].Product === selectedRows[0].product) {
+        this.myProduct = this.products[i].Product_id;
       }
     }
     // set the quantity to the selectedRow
@@ -172,13 +172,17 @@ export class StockeditComponent {
     }
   }
   saveChanges() {
-    // call the updateStockItem method
-    this.stockService.updateStockItem(this.myId, this.myProduct, this.myQuantity, this.myDate, this.mySupplier);
-    // Show toast message to the user that the item has been edited
-    this.toastr.success('Product bewerkt', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
-    // refresh the page by redirecting to its own url
-    setTimeout(() => {
-      window.location.reload()
-    }, 2000);
+    if (!this.myProduct || !this.myQuantity || !this.myDate || !this.mySupplier) {
+      this.toastr.error('Vul alle velden in', 'Error', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+    } else {
+      // call the updateStockItem method
+      this.stockService.updateStockItem(this.myId, this.myProduct, this.myQuantity, this.myDate, this.mySupplier);
+      // Show toast message to the user that the item has been edited
+      this.toastr.success('Product bewerkt', 'Success', {positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000});
+      // refresh the page by redirecting to its own url
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000);
+    }
   }
 }

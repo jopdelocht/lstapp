@@ -8,7 +8,7 @@ export class OrdersService {
   constructor() { }
 
   //Put recipe_product API endpoint URL in constant
-  ordersURL: string = 'http://127.0.0.1:8000/api/orders';
+  ordersURL: string = 'http://127.0.0.1:8000/api/orders/';
   fullfillLineItemURL: string = 'http://127.0.0.1:8000/api/fullfill_line_item';
 
   // get recipe_product
@@ -62,4 +62,12 @@ export class OrdersService {
     fetch(this.fullfillLineItemURL, options);
   }
 
+  async deleteOrder(orderid: any) {
+    const options = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      body: 'false'
+    };
+    const result = await fetch(this.ordersURL + orderid, options);
+   }
 }

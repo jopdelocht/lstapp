@@ -1,8 +1,7 @@
 <!-- only show when edit is not active -->
 <div class="container-fluid" *ngIf="!editMode">
-    <button type="submit" class="btn btn-primary m-2" (click)="getSelectedRows()">Fix data</button>
-    <button type="submit" class="btn btn-primary m-2" (click)="deleteSelectedRows()">VERWIJDER</button>
-    <button type="submit" class="btn btn-primary m-2" (click)="editCurrentRow()">Geselecteerde aanpassen</button>
+    <button type="submit" class="btn btn-primary m-2" (click)="deleteSelectedRows()"><i class="fa-solid fa-trash"></i></button>
+    <button type="submit" class="btn btn-primary m-2" (click)="editCurrentRow()"><i class="fa-solid fa-pencil"></i> Geselecteerde</button>
     <!-- AG Grid version of the table -->
     <ag-grid-angular 
     class="ag-theme-quartz mt-2" 
@@ -25,11 +24,11 @@
 
             <div class="input-group m-2">
                 <span class="input-group-text" id="inputGroup-sizing-default"><label
-                        for="stockName">Stockitem</label></span>
-                <select type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                    for="stockName">Stockitem</label></span>
+                    <select type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                     class="form-control" [(ngModel)]="myProduct">
                     @for (product of products; track product.id) {
-                    <option value [value]="product.id" [selected]="product.id === myProduct">{{ product.productname }}</option>
+                    <option value [value]="product.Product_id">{{ product.Product }}</option>
                     }
                 </select>
             </div>

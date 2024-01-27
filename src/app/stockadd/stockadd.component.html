@@ -12,7 +12,7 @@
                 <select type="text" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                     class="form-control" [(ngModel)]="myProduct">
                     @for (product of products; track product.id) {
-                    <option value [value]="product.id">{{ product.productname }}</option>
+                    <option value [value]="product.Product_id">{{ product.Product }}</option>
                     }
                 </select>
             </div>

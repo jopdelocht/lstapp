@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class IngredientaddComponent {
   ingredientName: string = '';
   gridApi: any;
   columnApi: any;
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
   fetchMyData() {
     fetch(this.allergensURL)
       .then(response => response.json())
@@ -54,6 +55,9 @@ export class IngredientaddComponent {
   }
   //post selected rows
   postSelectedRows() {
+    if (!this.ingredientName) {
+      this.toastr.error('Vul ingredientnaam in', 'Fout');
+    } else {
     let selectedRows = this.gridApi.getSelectedRows();
     console.log(selectedRows);
     let allergenIDs = selectedRows.map((x: { id: any; }) => x.id);
@@ -75,5 +79,12 @@ export class IngredientaddComponent {
       // Clear all the input fields
       this.ingredientName = '';
       this.allergenIDs = '';
+      // show success message
+      this.toastr.success('Ingredient toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 2000 });
+      // reload page
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
   }
 }
