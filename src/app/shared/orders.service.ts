@@ -30,7 +30,9 @@ export class OrdersService {
     productName: string,
     measurement: string,
     ingredientNames: string,
-    allergenNames: string) {
+    allergenNames: string,
+    deliveryDate: Date,
+    orderDate: string) {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
@@ -42,7 +44,9 @@ export class OrdersService {
         product: productName,
         type: measurement,
         ingredient: ingredientNames,
-        allergen: allergenNames
+        allergen: allergenNames,
+        deliverydate: deliveryDate,
+        orderdate: orderDate
       })
     };
     const result = await fetch(this.ordersURL, options);
@@ -50,7 +54,7 @@ export class OrdersService {
   };
 
   fulfillLineItem(orderId: string) {
-    
+
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
@@ -69,5 +73,5 @@ export class OrdersService {
       body: 'false'
     };
     const result = await fetch(this.ordersURL + orderid, options);
-   }
+  }
 }

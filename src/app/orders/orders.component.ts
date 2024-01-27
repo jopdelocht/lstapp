@@ -20,54 +20,48 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
-
 export class OrdersComponent {
+
   constructor(
     private ordersService: OrdersService,
     private ingredientsService: IngredientsService,
     private RecipeProductService: RecipeProductService,
     private ClientsService: ClientsService,
     private toastr: ToastrService
-    ) { }
+  ) { }
 
-  // variable needed for callback filter method
+  // needed for callback filter method
   myRecipe: any;
-
-  // defines recipeproduct url and empty array for storing recipeproducts
+  // array for storing recipeproducts
   recipeproducts: any[] = [];
-
-  // array where i'm storing the filtered recipes
+  // array for storing the filtered recipes
   filteredRecipes: any[] = [];
   firstFilteredRecipe: any;
-
-  // variable coming from input field for new quantity
+  // input field for the desired quantity
   myQuantity: number = 0;
-
   // storing freshly calculated values in this array
   calculatedValues: any[] = []
   calculatedValue: any = {};
   firstCalculatedValue: any;
-
-  // array for storing ingredients
+  // array for storing all fetched ingredients
   ingredientsArray: [{}] = [{}];
-
-  // array for storing orders
+  // array for storing all fecthed orders
   orders: [{}] = [{}];
-
-  // array for storing clients
+  // array for storing all fetched clients
   clients: any[] = [];
-
-  // variable for myClient
+  // storing the client id
   myClient: any;
-
-  // variables for storing the result of the ingredientnames and allergennames method
+  // storing the result of the ingredientnames and allergennames method
   ingredientNames: any;
   allergenNames: any;
-
+  // needed for grid
   gridApi: any;
   columnApi: any;
-
+  // storing the order
   myOrder: any;
+  // storing deliverydate and orderdate
+  deliveryDate: Date = new Date();
+  orderDate: Date = new Date();
 
   onGridReady(params: any) {
     this.gridApi = params.api;
@@ -108,7 +102,7 @@ export class OrdersComponent {
     return this.filteredRecipes;
   }
 
-  // 1) calculates the new values for the desired recipe and puts them in a copy of the original array named calculatedValues
+  // 1) calculates the new values for the desired recipe and puts them in a COPY of the original array named calculatedValues
   // 2) it also checks for the FIRST calculated value and stores it in a variable, to show the title, desired quantity and measurement - ONLY ONCE!
   calculateNewValues(filteredRecipes: any[]) {
     this.calculatedValues = Array.from(filteredRecipes, product => {
@@ -131,7 +125,7 @@ export class OrdersComponent {
     return this.firstCalculatedValue, this.ingredientNames, this.allergenNames;
   }
 
-  // This function searches the ingredients array for the NAMES of the INGREDIENTS corresponding to it's ID's
+  // This function searches the ingredients array for the NAMES of the INGREDIENTS corresponding to the ID's of the products used in the recipe
   // The numbers it's using are coming from the freshly calculated array of recipeproducts
   getIngredientNames(array1: any[], array2: any[]): string {
     let allIngredientNames: string[] = [];
@@ -152,29 +146,25 @@ export class OrdersComponent {
 
   findAllergens(recipe: any[], ingredients: any[]): string {
     let allergens: string[] = [];
-
     // Iterate over each item in the recipe array
     recipe.forEach(item => {
       // Split the ingredients string into an array of IDs
       const ids = item.ingredients.split(',').map(Number);
-
       // For each ID, find the matching ingredient in the ingredients array
       ids.forEach((id: any) => {
         const ingredient = ingredients.find(i => i.Ingredient_id === id);
-
         // If a match was found, split the Allergen string into an array and add it to the allergens array
         if (ingredient && ingredient.Allergen) {
           allergens = allergens.concat(ingredient.Allergen.split(','));
         }
       });
     });
-
     // Remove duplicates and join the array into a comma-separated string
     return [...new Set(allergens)].join(', ');
   }
 
   async postOrder(calculatedItem: any) {
-    
+
     // Access the service and send a stockitem
     await this.ordersService.postOrder(
       this.myClient,
@@ -184,9 +174,10 @@ export class OrdersComponent {
       calculatedItem.productname,
       calculatedItem.measurement,
       this.ingredientNames,
-      this.allergenNames
-      )
-
+      this.allergenNames,
+      this.deliveryDate,
+      this.orderDate.toLocaleDateString('be-BE', { year: 'numeric', month: '2-digit', day: '2-digit' })
+    )
     //refresh grid
     this.fetchOrders();
   };
@@ -197,10 +188,14 @@ export class OrdersComponent {
     } else {
       let selectedRows = this.gridApi.getSelectedRows();
       let lineItemId = selectedRows.map((x: { orderid: any; }) => x.orderid)[0];
-      
+
       this.ordersService.fulfillLineItem(lineItemId);
     }
   }
+
+
+
+
 
   ngOnInit() {
     this.fetchRecipeProduct();
@@ -218,10 +213,16 @@ export class OrdersComponent {
       field: "clientname",
       filter: true,
       headerName: 'Klantnaam',
-      maxWidth: 150,
+      maxWidth: 140,
+      checkboxSelection: true
+    },
+    {
+      field: "deliverydate",
+      filter: true,
+      headerName: 'Leverdatum',
       sortIndex: 0,
       sort: 'asc',
-      checkboxSelection: true
+      maxWidth: 150,
     },
     {
       field: "totalquantity",
@@ -262,6 +263,11 @@ export class OrdersComponent {
       field: "allergen",
       filter: true,
       headerName: 'Allergenen'
+    },
+    {
+      field: "orderdate",
+      filter: true,
+      headerName: 'Orderdatum',
     }
   ];
 }
