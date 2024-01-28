@@ -4,6 +4,7 @@
             <div id="header" class="text-center m-2">
                 <h3>Receptberekening</h3>
             </div>
+
             <div class="input-group m-2">
                 <span class="input-group-text" id="inputGroup-sizing-default"><label
                         for="stockName">Klant</label></span>
@@ -14,14 +15,12 @@
                     }
                 </select>
             </div>
-
             <div class="input-group m-2">
                 <span class="input-group-text" id="inputGroup-sizing-default"><label
                         for="stockDate">Leverdatum</label></span>
                 <input type="date" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default" [(ngModel)]="deliveryDate" placeholder="Vervaldatum">
             </div>
-
             <div class="input-group m-2">
                 <span class="input-group-text" id="inputGroup-sizing-default"><label
                         for="stockName">Recept</label></span>
@@ -33,7 +32,6 @@
                 <button class="btn btn-primary ms-2" type="button" id="button-addon2"
                     (click)="filteredRecipes = checkForRecipeIncludes()">Zoek</button>
             </div>
-
             <div *ngIf="firstFilteredRecipe">
                 <h4>{{ firstFilteredRecipe.recipename }} - {{ firstFilteredRecipe.basevalue }} {{
                     firstFilteredRecipe.measurement}}</h4>
@@ -44,20 +42,12 @@
                 </li>
                 }
             </div>
-
             <div class="input-group m-2">
-                <span class="input-group-text" id="inputGroup-sizing-default"><label for="stockName">Nieuwe
-                        hoeveelheid</label></span>
+                <span class="input-group-text" id="inputGroup-sizing-default"><label for="stockName">Nieuwe<br>hoeveelheid</label></span>
                 <input type="number" class="form-control" [(ngModel)]="myQuantity">
                 <button class="btn btn-primary ms-2" type="button" id="button-addon2"
                     (click)="calculateNewValues(checkForRecipeIncludes())">Bereken</button>
             </div>
-            <br><br><br>
-            <div>
-                <button class="btn btn-primary ms-2" type="button" id="button-addon2"
-                    (click)="deleteSelectedRowFromStock()">Verwijder uit stock</button>
-            </div>
-
             <div *ngIf="firstCalculatedValue">
                 <h4>{{ firstCalculatedValue.recipename }} - {{ myQuantity }} {{
                     firstCalculatedValue.measurement}}</h4>
@@ -69,6 +59,10 @@
                     {{ calculatedValue.productname }} - {{calculatedValue.quantity }} {{ calculatedValue.measurement}}
                 </li>
                 }
+            </div>
+            <div>
+                <button class="btn btn-danger ms-2" type="button" id="button-addon2"
+                    (click)="deleteSelectedRowFromStock()">Verwijder uit stock</button>
             </div>
 
         </div>

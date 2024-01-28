@@ -77,7 +77,8 @@ export class ProductseditComponent {
     {
       field: "Type",
       filter: true,
-      headerName: 'Type'
+      headerName: 'Type',
+      maxWidth: 78
     },
     {
       field: "Isfood",
@@ -85,7 +86,7 @@ export class ProductseditComponent {
       headerName: 'Voeding',
       cellRenderer: this.isFoodRenderer.bind(this),
       cellClass: 'center',
-      maxWidth: 115
+      maxWidth: 101
     }
   ]
 

@@ -1,11 +1,11 @@
 <div class="container-fluid" *ngIf="!editMode">
-   <button type="submit" class="btn btn-primary m-2" (click)="deleteSelectedRows()"><i class="fa-solid fa-trash"></i></button>
+   <button type="submit" class="btn btn-primary m-1" (click)="deleteSelectedRows()"><i class="fa-solid fa-trash"></i></button>
         <!-- <button type="submit" class="btn btn-primary m-2" (click)="editCurrentRow()"><i class="fa-solid fa-pencil"></i> Geselecteerde</button> -->
     <div class="col-md-12">
         <!-- AG Grid version of the table -->
         <ag-grid-angular 
-        class="ag-theme-quartz mt-2" 
-        style="height:82vh;" 
+        class="ag-theme-quartz" 
+        style="height:80vh;" 
         [rowData]="rowData"
         [columnDefs]="colDefs" 
         [pagination]="true"
