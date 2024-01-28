@@ -36,12 +36,12 @@ export const routes: Routes = [
     },
     {
         path: 'stockadd',
-        // canActivate: [authGuard],
+        canActivate: [authGuard],
         component: StockaddComponent
     },
     {
         path: 'stockedit',
-        // canActivate: [authGuard],
+        canActivate: [authGuard],
         component: StockeditComponent
     },
     {
@@ -50,12 +50,12 @@ export const routes: Routes = [
     },
     {
         path: 'ingredientadd',
-        // canActivate: [authGuard],
+        canActivate: [authGuard],
         component: IngredientaddComponent
     },
     {
         path: 'ingredientedit',
-        // canActivate: [authGuard],
+        canActivate: [authGuard],
         component: IngredienteditComponent
     },
     {
@@ -73,10 +73,12 @@ export const routes: Routes = [
     },
     {
         path: 'productsadd',
+        canActivate: [authGuard],
         component: ProductsaddComponent
     },
     {
         path: 'productsedit',
+        canActivate: [authGuard],
         component: ProductseditComponent
     },
     {
@@ -85,10 +87,12 @@ export const routes: Routes = [
     },
     {
         path: 'suppliersadd',
+        canActivate: [authGuard],
         component: SuppliersaddComponent
     },
     {
         path: 'suppliersedit',
+        canActivate: [authGuard],
         component: SupplierseditComponent
     },
     {
@@ -97,7 +101,7 @@ export const routes: Routes = [
     },
     {
         path: 'orderedit',
-        // canActivate: [authGuard],
+        canActivate: [authGuard],
         component: OrdereditComponent
     }
 ];

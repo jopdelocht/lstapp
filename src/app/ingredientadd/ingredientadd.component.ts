@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormArray, FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, ColumnState, GridReadyEvent } from 'ag-grid-community';
 import { ToastrService } from 'ngx-toastr';
+import { IngredientsService } from '../shared/ingredients.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class IngredientaddComponent {
   ingredientName: string = '';
   gridApi: any;
   columnApi: any;
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService, private ingredientsService: IngredientsService) { }
   fetchMyData() {
     fetch(this.allergensURL)
       .then(response => response.json())
@@ -64,17 +65,7 @@ export class IngredientaddComponent {
     console.log(allergenIDs);
     this.allergenIDs = allergenIDs.join(',');
 
-    // this.postIngredient(this.ingredientName, this.allergenIDs);
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
-      body: JSON.stringify({ 'name': this.ingredientName, 'allergens': this.allergenIDs })
-    };
-
-    fetch('http://127.0.0.1:8000/api/ingredients', options)
-      .then(response => response.json())
-      .then(response => console.log(response))
-      .catch(err => console.error(err));
+    this.ingredientsService.postIngredient(this.ingredientName, this.allergenIDs);
 
       // Clear all the input fields
       this.ingredientName = '';

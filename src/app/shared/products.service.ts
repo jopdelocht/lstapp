@@ -12,13 +12,23 @@ export class ProductsService {
 
   // get products
   async getProducts() {
-    return (await fetch(this.productsURL)).json()
-  }
+    const options = {
+       method: 'GET',
+       headers: {
+         'Content-Type': 'application/json',
+         'User-Agent': 'insomnia/2023.5.8',
+       },
+    };
+    return fetch(this.productsURL, options)
+       .then(response => response.json())
+       .catch(err => console.error(err));
+   }
 
   async postProduct(productName: string, ingredientIDs: string, isFood: number, typeId: number) {
+    const token = localStorage.getItem('token');
     const options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: JSON.stringify({
         name: productName,
         ingredients: ingredientIDs,
@@ -34,6 +44,7 @@ export class ProductsService {
   }
 
   async editProduct(myId: any, myProduct: any, myIngredients: any, myIsFood: any, myType: any) {
+    const token = localStorage.getItem('token');
     const item = {
       name: myProduct,
       ingredients: myIngredients,
@@ -42,15 +53,16 @@ export class ProductsService {
     }
     const result = await fetch(this.productsURL + myId, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: JSON.stringify(item)
     })
     return result.json();
   }
   async deleteProduct(Product_id: any) {
+    const token = localStorage.getItem('token');
     const result = await fetch(this.productsURL + Product_id, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8' },
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'insomnia/2023.5.8', Authorization: 'Bearer '+token },
       body: 'false'
     })
   }
