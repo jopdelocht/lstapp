@@ -201,9 +201,6 @@ export class OrdersComponent {
   }
 
 
-
-
-
   ngOnInit() {
     this.fetchRecipeProduct();
     this.getUniqueRecipes();
@@ -263,16 +260,16 @@ export class OrdersComponent {
       maxWidth: 150,
       cellStyle: { fontWeight: 'Bold' }
     },
-    {
-      field: "ingredient",
-      filter: true,
-      headerName: 'Ingrediënten'
-    },
-    {
-      field: "allergen",
-      filter: true,
-      headerName: 'Allergenen'
-    },
+    // {
+    //   field: "ingredient",
+    //   filter: true,
+    //   headerName: 'Ingrediënten'
+    // },
+    // {
+    //   field: "allergen",
+    //   filter: true,
+    //   headerName: 'Allergenen'
+    // },
     {
       field: "orderdate",
       filter: true,
