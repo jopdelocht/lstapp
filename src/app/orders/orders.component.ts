@@ -125,6 +125,8 @@ export class OrdersComponent {
     console.log(this.firstCalculatedValue);
     this.ingredientNames = this.getIngredientNames(this.calculatedValues, this.ingredientsArray);
     this.allergenNames = this.findAllergens(this.calculatedValues, this.ingredientsArray);
+    console.log('Dit zijn de ingredienten:', this.ingredientNames);
+    console.log('Dit zijn de allergenen:', this.allergenNames);
 
     return this.firstCalculatedValue, this.ingredientNames, this.allergenNames;
   }
