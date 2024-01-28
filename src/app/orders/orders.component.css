@@ -46,3 +46,13 @@ h3 {
 label {
     margin-right: 0.5rem;
 }
+
+.leftcontainer {
+    position: relative;
+}
+
+#button-addon2 {
+    position: absolute;
+    bottom: 0;
+    right: 0
+}

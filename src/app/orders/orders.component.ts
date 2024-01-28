@@ -119,9 +119,13 @@ export class OrdersComponent {
       this.firstCalculatedValue = null;
       this.calculatedValue = null; // update calculatedValue here
     }
+    // show information message
+    this.toastr.info('Klik op het plus-icoon langs het recepitem om deze toe te voegen aan de lijst van orderitems', 'Recept berekend', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 5000 });
+
     console.log(this.firstCalculatedValue);
     this.ingredientNames = this.getIngredientNames(this.calculatedValues, this.ingredientsArray);
     this.allergenNames = this.findAllergens(this.calculatedValues, this.ingredientsArray);
+
     return this.firstCalculatedValue, this.ingredientNames, this.allergenNames;
   }
 
@@ -164,8 +168,7 @@ export class OrdersComponent {
   }
 
   async postOrder(calculatedItem: any) {
-
-    // Access the service and send a stockitem
+    // Access the service and send a orderitem
     await this.ordersService.postOrder(
       this.myClient,
       this.myQuantity,
@@ -178,7 +181,9 @@ export class OrdersComponent {
       this.deliveryDate,
       this.orderDate.toLocaleDateString('be-BE', { year: 'numeric', month: '2-digit', day: '2-digit' })
     )
-    //refresh grid
+    // show success message
+    this.toastr.success('Orderitem toegevoegd', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
+    // Refresh grid
     this.fetchOrders();
   };
 
@@ -188,8 +193,8 @@ export class OrdersComponent {
     } else {
       let selectedRows = this.gridApi.getSelectedRows();
       let lineItemId = selectedRows.map((x: { orderid: any; }) => x.orderid)[0];
-
       this.ordersService.fulfillLineItem(lineItemId);
+      this.toastr.success('Orderitem verwijderd uit stock', 'Success', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 3000 });
     }
   }
 
@@ -240,7 +245,8 @@ export class OrdersComponent {
       field: "productquantity",
       filter: true,
       headerName: 'Hoeveelheid',
-      maxWidth: 145
+      maxWidth: 145,
+      cellStyle: { fontWeight: 'Bold' }
     },
     {
       field: "type",
@@ -252,7 +258,8 @@ export class OrdersComponent {
       field: "product",
       filter: true,
       headerName: 'Product',
-      maxWidth: 150
+      maxWidth: 150,
+      cellStyle: { fontWeight: 'Bold' }
     },
     {
       field: "ingredient",
