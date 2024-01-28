@@ -120,7 +120,7 @@ export class OrdersComponent {
       this.calculatedValue = null; // update calculatedValue here
     }
     // show information message
-    this.toastr.info('Klik op het plus-icoon langs het recepitem om deze toe te voegen aan de lijst van orderitems', 'Recept berekend', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 5000 });
+    this.toastr.info('Klik op het plus-icoon langs het recept item om deze toe te voegen aan de lijst van bestellingen', 'Recept berekend', { positionClass: 'toast-top-right', progressBar: true, progressAnimation: 'decreasing', timeOut: 5000 });
 
     console.log(this.firstCalculatedValue);
     this.ingredientNames = this.getIngredientNames(this.calculatedValues, this.ingredientsArray);
